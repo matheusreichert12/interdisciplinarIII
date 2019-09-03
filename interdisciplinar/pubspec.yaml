@@ -17,6 +17,8 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  curved_navigation_bar: ^0.1.26
+  cloud_firestore: any
   flutter:
     sdk: flutter
 
@@ -39,6 +41,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  
+  assets:
+    - assets/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

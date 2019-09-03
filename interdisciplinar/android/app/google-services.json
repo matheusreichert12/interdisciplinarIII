@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "860547044198",
+    "firebase_url": "https://tmj-locadora-equipamentos.firebaseio.com",
+    "project_id": "tmj-locadora-equipamentos",
+    "storage_bucket": "tmj-locadora-equipamentos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860547044198:android:521573bebdec4c2e",
+        "android_client_info": {
+          "package_name": "com.example.interdisciplinar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860547044198-ku4dcpeld0s2frhb3qh4t9f0o828kfmh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyflg41zWk1LNK2HZ6usGdkv7JVosbZe8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860547044198-ku4dcpeld0s2frhb3qh4t9f0o828kfmh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
