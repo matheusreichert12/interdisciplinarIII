@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:interdisciplinar/login.page.dart';
+import 'package:interdisciplinar/login.dart';
 
 void main() => runApp(MaterialApp(
       home: Home(),
@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: LoginPage(),
+      home: Login(),
     );
   }
 }

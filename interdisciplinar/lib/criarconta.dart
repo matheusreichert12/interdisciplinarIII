@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:interdisciplinar/login.page.dart';
+import 'package:interdisciplinar/login.dart';
 
-class CriarContaPage extends StatefulWidget {
+class CriarConta extends StatefulWidget {
   @override
-  _CriarContaPageState createState() => _CriarContaPageState();
+  _CriarContaState createState() => _CriarContaState();
 }
 
-class _CriarContaPageState extends State<CriarContaPage> {
+class _CriarContaState extends State<CriarConta> {
   final _login = TextEditingController();
   final _senha = TextEditingController();
 
@@ -23,11 +23,6 @@ class _CriarContaPageState extends State<CriarContaPage> {
         color: Colors.white,
         child: ListView(
           children: <Widget>[
-            SizedBox(
-              width: 100,
-              height: 100,
-              child: Image.asset("assets/tmj.png"),
-            ),
             SizedBox(
               height: 20,
             ),
@@ -142,7 +137,7 @@ class _CriarContaPageState extends State<CriarContaPage> {
                 ),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                      MaterialPageRoute(builder: (context) => Login()));
                 },
               ),
             ),

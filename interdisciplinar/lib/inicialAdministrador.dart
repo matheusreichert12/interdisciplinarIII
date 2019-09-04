@@ -1,32 +1,35 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:interdisciplinar/equipamento.dart';
 
-class InicialAdministradorPage extends StatefulWidget {
+class InicialAdministrador extends StatefulWidget {
   @override
-  _InicialAdministradorPageState createState() =>
-      _InicialAdministradorPageState();
+  _InicialAdministradorState createState() => _InicialAdministradorState();
 }
 
-class _InicialAdministradorPageState extends State<InicialAdministradorPage> {
+class _InicialAdministradorState extends State<InicialAdministrador> {
   int _pageIndex = 0;
 
-  Widget _showPage = new Container(child: new Text("Equipamentos"));
+  Widget _showPage = new Equipamento();
 
   Widget _pageChooser(int page) {
     switch (page) {
       case 0:
-        return new Container(
-          child: new Text("Equipamentos"),
-        );
+        return new Equipamento();
         break;
       case 1:
         return new Container(
           child: new Text("Serviços"),
         );
         break;
-      default:
+      case 2:
         return new Container(
           child: new Text("Clientes"),
+        );
+        break;
+      default:
+        return new Container(
+          child: new Text("Página não Encontrada"),
         );
     }
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class InicialFuncionarioPage extends StatefulWidget {
+class InicialFuncionario extends StatefulWidget {
   @override
-  _InicialFuncionarioPageState createState() => _InicialFuncionarioPageState();
+  _InicialFuncionarioState createState() => _InicialFuncionarioState();
 }
 
-class _InicialFuncionarioPageState extends State<InicialFuncionarioPage> {
+class _InicialFuncionarioState extends State<InicialFuncionario> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

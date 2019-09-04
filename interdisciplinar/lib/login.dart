@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:interdisciplinar/criarconta.page.dart';
-import 'package:interdisciplinar/inicialAdministrador.page.dart';
-import 'package:interdisciplinar/inicialFuncionario.page.dart';
+import 'package:interdisciplinar/criarconta.dart';
+import 'package:interdisciplinar/inicialAdministrador.dart';
+import 'package:interdisciplinar/inicialFuncionario.dart';
 
-class LoginPage extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginState createState() => _LoginState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginState extends State<Login> {
   final _login = TextEditingController();
   final _senha = TextEditingController();
 
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CriarContaPage()));
+                          builder: (context) => CriarConta()));
                 },
               ),
             ),
@@ -131,13 +131,13 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => InicialAdministradorPage()));
+                  builder: (context) => InicialAdministrador()));
         } else {
           //funcionario
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => InicialFuncionarioPage()));
+                  builder: (context) => InicialFuncionario()));
         }
       } else {
         //não ta cadastrado
