@@ -140,9 +140,9 @@ class _CriarContaPageState extends State<CriarContaPage> {
                   "Ja possuí uma conta? Fazer login",
                   textAlign: TextAlign.center,
                 ),
-                onPressed: () => {
+                onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage())),
+                      MaterialPageRoute(builder: (context) => LoginPage()));
                 },
               ),
             ),

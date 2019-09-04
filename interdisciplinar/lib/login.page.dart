@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:interdisciplinar/criarconta.page.dart';
+import 'package:interdisciplinar/inicialAdministrador.page.dart';
+import 'package:interdisciplinar/inicialFuncionario.page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -80,7 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 20,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    verificaLogin();
+                  },
                 ),
               ),
             ),
@@ -95,11 +100,11 @@ class _LoginPageState extends State<LoginPage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.black),
                 ),
-                onPressed: () => {
+                onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CriarContaPage())),
+                          builder: (context) => CriarContaPage()));
                 },
               ),
             ),
@@ -107,5 +112,56 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  verificaLogin() {
+    //String id = "";
+    Firestore.instance
+        .collection("usuarios")
+        .where("login", isEqualTo: _login.text)
+        .where("senha", isEqualTo: _senha.text)
+        .getDocuments()
+        .then((QuerySnapshot docs) {
+      if (docs.documents.length != 0) {
+        // id = docs.documents[0].documentID;
+        // tem usuario cadastrado
+        if (docs.documents[0].data['admin'] == 1) {
+          //administrador
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => InicialAdministradorPage()));
+        } else {
+          //funcionario
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => InicialFuncionarioPage()));
+        }
+      } else {
+        //não ta cadastrado
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: new Text(
+                "Usuário e/ou senha incorreta!",
+                style: new TextStyle(color: Colors.red),
+              ),
+              actions: <Widget>[
+                // define os botões na base do dialogo
+                new FlatButton(
+                  child: new Text("Fechar"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    });
   }
 }
