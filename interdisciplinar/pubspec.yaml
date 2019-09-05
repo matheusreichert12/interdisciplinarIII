@@ -18,7 +18,9 @@ environment:
 
 dependencies:
   curved_navigation_bar: ^0.1.26
-  cloud_firestore: any
+  cloud_firestore: any 
+  firebase_storage: ^2.1.0+1
+  image_picker: ^0.4.12
   flutter:
     sdk: flutter
 
