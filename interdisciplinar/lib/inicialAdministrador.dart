@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:interdisciplinar/contatos.dart';
 import 'package:interdisciplinar/equipamento.dart';
 
 class InicialAdministrador extends StatefulWidget {
@@ -24,7 +25,7 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
         break;
       case 2:
         return new Container(
-          child: new Text("Clientes"),
+          child: new Contatos(),
         );
         break;
       default:
