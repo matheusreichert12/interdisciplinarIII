@@ -1,20 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:interdisciplinar/equipamentoIncluir.dart';
 
-class Equipamento extends StatefulWidget {
+class Contatos extends StatefulWidget {
   @override
-  _EquipamentoState createState() => _EquipamentoState();
+  _ContatosState createState() => _ContatosState();
 }
 
-class _EquipamentoState extends State<Equipamento> {
+class _ContatosState extends State<Contatos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(0),
         child: StreamBuilder(
-          stream: Firestore.instance.collection('equipamento').snapshots(),
+          stream: Firestore.instance.collection('contato').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
@@ -30,12 +29,9 @@ class _EquipamentoState extends State<Equipamento> {
                           onTap: () {
                             //updateAlertDialog(context, document.documentID);
                           },
-                          leading: SizedBox(
-                            child: Image.network(
-                              document['equipamentoImage'],
-                              height: 70,
-                              width: 70,
-                            ),
+                          leading: CircleAvatar(
+                            child: Icon(Icons.person,color: Colors.white,),
+                            backgroundColor: Colors.grey
                           ),
                           title: Text(
                             document['nome'],
@@ -65,10 +61,7 @@ class _EquipamentoState extends State<Equipamento> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => EquipamentoIncluir()));
-        },
+        onPressed: () {},
         child: Icon(Icons.add),
       ),
     );
