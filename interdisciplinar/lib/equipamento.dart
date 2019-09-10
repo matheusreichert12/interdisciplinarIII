@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:interdisciplinar/equipamentoIncluir.dart';
 
 class Equipamento extends StatefulWidget {
   @override
@@ -29,9 +30,8 @@ class _EquipamentoState extends State<Equipamento> {
                           onTap: () {
                             //updateAlertDialog(context, document.documentID);
                           },
-                          leading: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(document['equipamentoImage']),
+                          leading: SizedBox(
+                            child: Image.network(document['equipamentoImage']),
                           ),
                           title: Text(
                             document['nome'],
@@ -61,6 +61,13 @@ class _EquipamentoState extends State<Equipamento> {
             );
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EquipamentoIncluir()));
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
