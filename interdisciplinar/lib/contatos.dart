@@ -13,7 +13,7 @@ class _ContatosState extends State<Contatos> {
       body: Padding(
         padding: EdgeInsets.all(0),
         child: StreamBuilder(
-          stream: Firestore.instance.collection('contato').snapshots(),
+          stream: Firestore.instance.collection('equipamento').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
@@ -30,9 +30,11 @@ class _ContatosState extends State<Contatos> {
                             //updateAlertDialog(context, document.documentID);
                           },
                           leading: CircleAvatar(
-                            child: Icon(Icons.person,color: Colors.white,),
-                            backgroundColor: Colors.grey
-                          ),
+                              child: Icon(
+                                Icons.person,
+                                color: Colors.white,
+                              ),
+                              backgroundColor: Colors.grey),
                           title: Text(
                             document['nome'],
                             style: TextStyle(fontWeight: FontWeight.bold),
