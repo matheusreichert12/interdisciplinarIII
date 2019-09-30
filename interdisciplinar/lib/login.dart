@@ -14,17 +14,6 @@ class _LoginState extends State<Login> {
   final _login = TextEditingController();
   final _senha = TextEditingController();
 
-  String animationName = "idle";
-  void teste() {
-    setState(() {
-      if (animationName == 'idle') {
-        animationName = 'success';
-      } else {
-        animationName = 'idle';
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,22 +26,12 @@ class _LoginState extends State<Login> {
         color: Colors.white,
         child: ListView(
           children: <Widget>[
-            /*SizedBox(
+            SizedBox(
               width: 100,
               height: 100,
               child: Image.asset("assets/tmj.png"),
-            ),*/
-            Container(
-              width: 600,
-              height: 300,
-              child: FlareActor(
-                'assets/Teddy.flr',
-                alignment: Alignment.center,
-                fit: BoxFit.contain,
-                animation: animationName,
-              ),
             ),
-            /*SizedBox(
+            SizedBox(
               height: 50,
             ),
             TextFormField(
@@ -127,13 +106,9 @@ class _LoginState extends State<Login> {
                       MaterialPageRoute(builder: (context) => CriarConta()));
                 },
               ),
-            ),*/
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: teste,
-        child: Icon(Icons.add),
       ),
     );
   }
