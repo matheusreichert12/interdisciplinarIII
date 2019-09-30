@@ -20,12 +20,12 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
         break;
       case 1:
         return new Container(
-          child: new Text("Serviços"),
+          child: new Contatos(),
         );
         break;
       case 2:
         return new Container(
-          child: new Contatos(),
+          child: new Text("Ordem de Serviço"),
         );
         break;
       default:
@@ -43,8 +43,9 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
         initialIndex: _pageIndex,
         items: <Widget>[
           Icon(Icons.build, size: 30, color: Colors.white),
+           Icon(Icons.group, size: 30, color: Colors.white),
           Icon(Icons.assignment, size: 30, color: Colors.white),
-          Icon(Icons.group, size: 30, color: Colors.white),
+         
         ],
         color: Colors.grey,
         backgroundColor: Colors.white,

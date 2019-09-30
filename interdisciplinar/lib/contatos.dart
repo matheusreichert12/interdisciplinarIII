@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:interdisciplinar/contatosIncluir.dart';
 
 class Contatos extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _ContatosState extends State<Contatos> {
       body: Padding(
         padding: EdgeInsets.all(0),
         child: StreamBuilder(
-          stream: Firestore.instance.collection('equipamento').snapshots(),
+          stream: Firestore.instance.collection('clientes').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
@@ -39,7 +40,11 @@ class _ContatosState extends State<Contatos> {
                             document['nome'],
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text(document['descricao']),
+                          subtitle: Text(document['cidade'].toString() +
+                              ", " +
+                              document['endereco'].toString() +
+                              ",  Tel.: " +
+                              document['telefone'].toString()),
                         ),
                       ),
                       IconButton(
@@ -49,7 +54,7 @@ class _ContatosState extends State<Contatos> {
                         ),
                         onPressed: () {
                           Firestore.instance
-                              .collection("equipamento")
+                              .collection("clientes")
                               .document(document.documentID)
                               .delete();
                         },
@@ -63,7 +68,10 @@ class _ContatosState extends State<Contatos> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ContatosIncluir()));
+        },
         child: Icon(Icons.add),
       ),
     );
