@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:interdisciplinar/criarconta.dart';
 import 'package:interdisciplinar/inicialAdministrador.dart';
 import 'package:interdisciplinar/inicialFuncionario.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,6 +13,17 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _login = TextEditingController();
   final _senha = TextEditingController();
+
+  String animationName = "idle";
+  void teste() {
+    setState(() {
+      if (animationName == 'idle') {
+        animationName = 'success';
+      } else {
+        animationName = 'idle';
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +37,22 @@ class _LoginState extends State<Login> {
         color: Colors.white,
         child: ListView(
           children: <Widget>[
-            SizedBox(
+            /*SizedBox(
               width: 100,
               height: 100,
               child: Image.asset("assets/tmj.png"),
+            ),*/
+            Container(
+              width: 600,
+              height: 300,
+              child: FlareActor(
+                'assets/Teddy.flr',
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                animation: animationName,
+              ),
             ),
-            SizedBox(
+            /*SizedBox(
               height: 50,
             ),
             TextFormField(
@@ -101,15 +123,17 @@ class _LoginState extends State<Login> {
                   style: TextStyle(color: Colors.black),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CriarConta()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CriarConta()));
                 },
               ),
-            ),
+            ),*/
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: teste,
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -128,16 +152,12 @@ class _LoginState extends State<Login> {
         if (docs.documents[0].data['admin'] == 1) {
           //administrador
 
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => InicialAdministrador()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => InicialAdministrador()));
         } else {
           //funcionario
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => InicialFuncionario()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => InicialFuncionario()));
         }
       } else {
         //não ta cadastrado
