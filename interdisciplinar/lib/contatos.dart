@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:interdisciplinar/contatosIncluir.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Contatos extends StatefulWidget {
   @override
@@ -18,52 +19,61 @@ class _ContatosState extends State<Contatos> {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
-              return new Text("Loading ...");
-            }
-            return new ListView(
-              children: snapshot.data.documents.map((document) {
-                return new Card(
-                  child: new Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: ListTile(
-                          onTap: () {
-                            //updateAlertDialog(context, document.documentID);
-                          },
-                          leading: CircleAvatar(
-                              child: Icon(
-                                Icons.person,
-                                color: Colors.white,
-                              ),
-                              backgroundColor: Colors.grey),
-                          title: Text(
-                            document['nome'],
-                            style: TextStyle(fontWeight: FontWeight.bold),
+              return new Center(
+                child: CircularProgressIndicator(),
+              );
+            } else
+              return new ListView(
+                children: snapshot.data.documents.map((document) {
+                  return new Card(
+                    child: new Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: ListTile(
+                            onTap: () {
+                              //updateAlertDialog(context, document.documentID);
+                            },
+                            leading: CircleAvatar(
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                ),
+                                backgroundColor: Colors.grey),
+                            title: Text(
+                              document['nome'],
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(document['cidade'].toString() +
+                                ", " +
+                                document['endereco'].toString()),
                           ),
-                          subtitle: Text(document['cidade'].toString() +
-                              ", " +
-                              document['endereco'].toString() +
-                              ",  Tel.: " +
-                              document['telefone'].toString()),
                         ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                        IconButton(
+                          icon: Icon(
+                            Icons.phone,
+                            color: Colors.green,
+                          ),
+                          onPressed: () {
+                            launch("tel:${document["telefone"]}");
+                          },
                         ),
-                        onPressed: () {
-                          Firestore.instance
-                              .collection("clientes")
-                              .document(document.documentID)
-                              .delete();
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            );
+                        IconButton(
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            Firestore.instance
+                                .collection("clientes")
+                                .document(document.documentID)
+                                .delete();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              );
           },
         ),
       ),

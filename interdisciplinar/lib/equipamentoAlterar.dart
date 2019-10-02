@@ -1,12 +1,41 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class EquipamentoIncluir extends StatefulWidget {
+class EquipamentoAlterar extends StatefulWidget {
+  final String idEquipamento;
+  EquipamentoAlterar({this.idEquipamento});
   @override
-  _EquipamentoIncluirState createState() => _EquipamentoIncluirState();
+  _EquipamentoAlterarState createState() =>
+      _EquipamentoAlterarState(idEquipamento: this.idEquipamento);
 }
 
-class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
+class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
+  final String idEquipamento;
+  _EquipamentoAlterarState({this.idEquipamento});
+
+  @override
+  initState() {
+    super.initState();
+    // Add listeners to this class
+    buscaDados();
+  }
+
+  buscaDados() {
+    Firestore.instance
+        .collection("equipamentos")
+        .document(this.idEquipamento)
+        .snapshots()
+        .forEach((DocumentSnapshot docs) {
+      if (docs.data.length != 0) {
+        _nome.text = docs.data['nome'];
+        _valorDiaria.text = docs.data['valorDia'].toString();
+        _valorMes.text = docs.data['valorMes'].toString();
+        _descricaoAdicional.text = docs.data['descricaoAdicional'];
+        _valorAdicional.text = docs.data['valorAdicional'].toString();
+      }
+    });
+  }
+
   final _formKey = GlobalKey<FormState>();
   final _nome = TextEditingController();
   final _valorDiaria = TextEditingController();
@@ -18,7 +47,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Equipamento"),
+        title: Text("Alteração Equipamento"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -52,7 +81,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   controller: _valorDiaria,
                   decoration: InputDecoration(
-                    hintText: "Valor diária",
+                    hintText: "Valor diário",
                   ),
                 ),
                 SizedBox(
@@ -123,7 +152,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                   child: SizedBox.expand(
                     child: FlatButton(
                       child: Text(
-                        "Salvar",
+                        "Alterar",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -132,7 +161,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          salvarEquipamento();
+                          alterarEquipamento();
                         }
                       },
                     ),
@@ -146,8 +175,11 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
     );
   }
 
-  void salvarEquipamento() {
-    Firestore.instance.collection("equipamentos").document().setData({
+  void alterarEquipamento() {
+    Firestore.instance
+        .collection("equipamentos")
+        .document(this.idEquipamento)
+        .updateData({
       'nome': _nome.text,
       'valorDia': _valorDiaria.text == "" ? 0 : double.parse(_valorDiaria.text),
       'valorMes': _valorMes.text == "" ? 0 : double.parse(_valorMes.text),

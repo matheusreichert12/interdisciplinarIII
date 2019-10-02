@@ -43,9 +43,8 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
         initialIndex: _pageIndex,
         items: <Widget>[
           Icon(Icons.build, size: 30, color: Colors.white),
-           Icon(Icons.group, size: 30, color: Colors.white),
+          Icon(Icons.group, size: 30, color: Colors.white),
           Icon(Icons.assignment, size: 30, color: Colors.white),
-         
         ],
         color: Colors.grey,
         backgroundColor: Colors.white,
