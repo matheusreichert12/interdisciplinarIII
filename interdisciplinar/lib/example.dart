@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:interdisciplinar/equipamentoAlterar.dart';
 
 class ExamplePage extends StatefulWidget {
   // ExamplePage({ Key key }) : super(key: key);
@@ -16,7 +18,7 @@ class _ExamplePageState extends State<ExamplePage> {
   List names = new List();
   List filteredNames = new List();
   Icon _searchIcon = new Icon(Icons.search);
-  Widget _appBarTitle = new Text('Search Example');
+  Widget _appBarTitle = new Text('Equipamentos');
 
   _ExamplePageState() {
     _filter.addListener(() {
@@ -43,7 +45,7 @@ class _ExamplePageState extends State<ExamplePage> {
     return Scaffold(
       appBar: _buildBar(context),
       body: Container(
-        child: _buildList(),
+        child: _buildList("T"),
       ),
       resizeToAvoidBottomPadding: false,
     );
@@ -60,8 +62,8 @@ class _ExamplePageState extends State<ExamplePage> {
     );
   }
 
-  Widget _buildList() {
-    if (!(_searchText.isEmpty)) {
+  Widget _buildList(String texto) {
+    /*if (!(_searchText.isEmpty)) {
       List tempList = new List();
       for (int i = 0; i < filteredNames.length; i++) {
         if (filteredNames[i]['name']
@@ -80,7 +82,105 @@ class _ExamplePageState extends State<ExamplePage> {
           onTap: () => print(filteredNames[index]['name']),
         );
       },
-    );
+    );*/
+    var queryResultSet = [];
+    var tempSearchStore = [];
+
+    if (texto.length == 0) {
+      setState(() {
+        queryResultSet = [];
+        tempSearchStore = [];
+      });
+    }
+
+    var capitalizedValue =
+        texto.substring(0, 1).toUpperCase() + texto.substring(1);
+  print(texto.substring(0, 1).toUpperCase());
+    if (queryResultSet.length == 0 && texto.length == 1) {
+        print(texto.substring(0, 1).toUpperCase());
+      Firestore.instance
+          .collection('equipamentos')
+          .where('nome', isEqualTo: texto.substring(0, 1).toUpperCase())
+          .getDocuments()
+          .then((QuerySnapshot docs) {
+        for (int i = 0; i < docs.documents.length; ++i) {
+           print(texto.substring(0, 1).toUpperCase());
+          queryResultSet.add(docs.documents[i].data);
+        }
+      });
+    } else {
+      tempSearchStore = [];
+      queryResultSet.forEach((element) {
+        if (element['nome'].startsWith(capitalizedValue)) {
+          setState(() {
+            tempSearchStore.add(element);
+          });
+        }
+      });
+    }
+   
+    return StreamBuilder(
+        stream: Firestore.instance
+            .collection('equipamentos')
+            .where('nome', isEqualTo: texto.substring(0, 1).toUpperCase())
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return new Center(
+              child: CircularProgressIndicator(),
+            );
+          } else
+            return new ListView(
+              children: snapshot.data.documents.map((document) {
+                return new Card(
+                  child: new Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EquipamentoAlterar(
+                                          idEquipamento: document.documentID,
+                                        )));
+                          },
+                          leading: Icon(
+                            Icons.build,
+                            size: 30,
+                          ),
+                          title: Text(
+                            document['nome'],
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          subtitle: document['valorMes'] == 0
+                              ? Text("Valor diária: R\$" +
+                                  document['valorDia'].toStringAsFixed(2))
+                              : Text("Valor diária: R\$" +
+                                  document['valorDia'].toStringAsFixed(2) +
+                                  " Valor ao Mês: R\$" +
+                                  document['valorMes'].toStringAsFixed(2)),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          Firestore.instance
+                              .collection("equipamentos")
+                              .document(document.documentID)
+                              .delete();
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            );
+        });
   }
 
   void _searchPressed() {
@@ -94,7 +194,7 @@ class _ExamplePageState extends State<ExamplePage> {
         );
       } else {
         this._searchIcon = new Icon(Icons.search);
-        this._appBarTitle = new Text('Search Example');
+        this._appBarTitle = new Text('Equipamentos');
         filteredNames = names;
         _filter.clear();
       }

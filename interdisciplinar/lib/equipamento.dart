@@ -13,82 +13,88 @@ class _EquipamentoState extends State<Equipamento> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Equipamentos"),
+        title: TextField(
+          style: TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+            hintText: "Pesquisar",
+            hintStyle: TextStyle(color: Colors.white)
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.grey,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.white,
+        leading: Icon(Icons.search),
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: StreamBuilder(
+              stream: Firestore.instance.collection('equipamentos').snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return new Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else
+                  return new ListView(
+                    children: snapshot.data.documents.map((document) {
+                      return new Card(
+                        child: new Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: ListTile(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EquipamentoAlterar(
+                                                idEquipamento:
+                                                    document.documentID,
+                                              )));
+                                },
+                                leading: Icon(
+                                  Icons.build,
+                                  size: 30,
+                                ),
+                                title: Text(
+                                  document['nome'],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                                subtitle: document['valorMes'] == 0
+                                    ? Text("Valor diária: R\$" +
+                                        document['valorDia'].toStringAsFixed(2))
+                                    : Text("Valor diária: R\$" +
+                                        document['valorDia']
+                                            .toStringAsFixed(2) +
+                                        " Valor ao Mês: R\$" +
+                                        document['valorMes']
+                                            .toStringAsFixed(2)),
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                              onPressed: () {
+                                Firestore.instance
+                                    .collection("equipamentos")
+                                    .document(document.documentID)
+                                    .delete();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  );
+              },
             ),
-            onPressed: () {},
           ),
         ],
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(0),
-        child: StreamBuilder(
-          stream: Firestore.instance.collection('equipamentos').snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (!snapshot.hasData) {
-              return new Center(
-                child: CircularProgressIndicator(),
-              );
-            } else
-              return new ListView(
-                children: snapshot.data.documents.map((document) {
-                  return new Card(
-                    child: new Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: ListTile(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => EquipamentoAlterar(
-                                            idEquipamento: document.documentID,
-                                          )));
-                            },
-                            leading: Icon(
-                              Icons.build,
-                              size: 30,
-                            ),
-                            title: Text(
-                              document['nome'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            subtitle: document['valorMes'] == 0
-                                ? Text("Valor diária: R\$" +
-                                    document['valorDia'].toStringAsFixed(2))
-                                : Text("Valor diária: R\$" +
-                                    document['valorDia'].toStringAsFixed(2) +
-                                    " Valor ao Mês: R\$" +
-                                    document['valorMes'].toStringAsFixed(2)),
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                          onPressed: () {
-                            Firestore.instance
-                                .collection("equipamentos")
-                                .document(document.documentID)
-                                .delete();
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              );
-          },
-        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
