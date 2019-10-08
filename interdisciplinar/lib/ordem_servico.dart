@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:interdisciplinar/ordem_servicoIncluir.dart';
 
 class OrdemServico extends StatefulWidget {
   @override
@@ -24,17 +25,159 @@ class _OrdemServicoState extends State<OrdemServico> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          /*Navigator.push(context,
-              MaterialPageRoute(builder: (context) => EquipamentoIncluir()));*/
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => OrdemServicoIncluir()));
         },
         child: Icon(Icons.add),
       ),
-      body: Card(
+      body: StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance.collection("ordens").snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return new Center(
+              child: CircularProgressIndicator(),
+            );
+          } else
+            return new ListView(
+              children: snapshot.data.documents.map((document) {
+                int status = document["status"];
+                return new Card(
+                  elevation: 5.0,
+                  margin: EdgeInsets.all(8),
+                  child: ExpansionTile(
+                    title: Text(
+                      "${document["nomeCliente"]}",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Equipamento: ${document["equipamento"]["nome"]}",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 4.0,
+                            ),
+                            Text("Data Entrega: ${document["data_entrega"]}"),
+                            SizedBox(
+                              height: 4.0,
+                            ),
+                            Text(
+                                "Valor dia: R\$ ${document["equipamento"]["valorDia"].toStringAsFixed(2)} x ${document["dias"]} dias"),
+                            SizedBox(
+                              height: 4.0,
+                            ),
+                            Text(
+                                "SubTotal: R\$ ${document["valorEquipamentos"].toStringAsFixed(2)}"),
+                            SizedBox(
+                              height: 4.0,
+                            ),
+                            Text(
+                                "Desconto: R\$ ${document["desconto"].toStringAsFixed(2)}"),
+                            SizedBox(
+                              height: 4.0,
+                            ),
+                            SizedBox(
+                              height: 4.0,
+                            ),
+                            Text(
+                              "Total: R\$ ${document["valorTotal"].toStringAsFixed(2)}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Text(
+                              "Status da Ordem:",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 4.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                _buildCircle("1", "Entrega", status, 1),
+                                Container(
+                                  height: 1.0,
+                                  width: 40.0,
+                                  color: Colors.grey[500],
+                                ),
+                                _buildCircle("2", "Devolução", status, 2),
+                              ],
+                            ),
+                            status <= 2
+                                ? RaisedButton(
+                                    child: Text(status == 1
+                                        ? "Confirmar Entrega"
+                                        : "Confirmar Devolução"),
+                                    textColor: Colors.white,
+                                    color: Theme.of(context).primaryColor,
+                                    onPressed: () {
+                                      Firestore.instance
+                                          .collection("ordens")
+                                          .document(document.documentID)
+                                          .updateData({
+                                        'clienteID': document["clienteID"],
+                                        'data_devolucao':
+                                            document["data_devolucao"],
+                                        "equipamento": {
+                                          "equipamentoID":
+                                              "-LqCk1WyAUODo3ND4B4M",
+                                          "valorDia": document["equipamento"]
+                                              ["valorDia"],
+                                          "valorMes": document["equipamento"]
+                                              ["valorMes"],
+                                          "nome": document["equipamento"]
+                                              ["nome"],
+                                          "descricaoAdicional": "",
+                                          "valorAdicional": 0.0
+                                        },
+                                        "desconto": document["desconto"],
+                                        "data_entrega":
+                                            document["data_entrega"],
+                                        "status": status++,
+                                        "dias": document["dias"],
+                                        "valorEquipamentos":
+                                            document["valorEquipamentos"],
+                                        "valorTotal": document["valorTotal"]
+                                      });
+                                    },
+                                  )
+                                : Container(
+                                    height: 10,
+                                  ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            );
+        },
+      ),
+
+      /* Card(
         elevation: 5.0,
         margin: EdgeInsets.all(8),
-        child: ExpansionTile(
+        child: 
+        ExpansionTile(
           title: Text(
-            "Matheus Reichert - status: Entregou",
+            "Matheus - status: Entregou",
             textAlign: TextAlign.start,
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -164,7 +307,7 @@ class _OrdemServicoState extends State<OrdemServico> {
             ),
           ],
         ),
-      ),
+      ),*/
     );
   }
 
