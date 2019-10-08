@@ -22,34 +22,32 @@ class _OrdemServicoState extends State<OrdemServico> {
         backgroundColor: Colors.grey,
         leading: Icon(Icons.search),
       ),
-      body: Card(
-        elevation: 5.0,
-        margin: EdgeInsets.all(8),
-        child: ExpansionTile(
-          title: Text(
-            "Matheus Reichert - 07/10/2019",
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[700],
-            ),
-          ),
-          children: <Widget>[
-            StreamBuilder<DocumentSnapshot>(
-              stream: Firestore.instance
-                  .collection("ordens")
-                  .document("-LqbNY5TUhZW7mxfrdnh")
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  int status = snapshot.data["status"];
+      body: StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance.collection("ordens").snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            //int status = snapshot.data["status"];
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            /*return ListView(
+              
+              children: snapshot.data.documents.map((document) {
+                return 
+                Card(
+                  elevation: 5.0,
+                  margin: EdgeInsets.all(8),
+                  child: ExpansionTile(
+                    title: Text(
+                      "${snapshot.data["nomeCliente"]} - 07/10/2019",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[700],
+                      ),
+                    ),
                     children: <Widget>[
                       Text(
                         "Código do Pedido: ${snapshot.data.documentID}",
@@ -95,15 +93,15 @@ class _OrdemServicoState extends State<OrdemServico> {
                               onPressed: () {},
                             )
                           : Container(
-                            height: 10,
-                          ),
+                              height: 10,
+                            ),
                     ],
-                  );
-                }
-              },
-            ),
-          ],
-        ),
+                  ),
+                ),
+              ),
+            );*/
+          }
+        },
       ),
     );
   }
