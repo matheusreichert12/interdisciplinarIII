@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:interdisciplinar/criarconta.dart';
 import 'package:interdisciplinar/inicialAdministrador.dart';
-import 'package:interdisciplinar/inicialFuncionario.dart';
-import 'package:flare_flutter/flare_actor.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,10 +11,12 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _login = TextEditingController();
   final _senha = TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         padding: EdgeInsets.only(
           top: 60,
@@ -122,40 +122,15 @@ class _LoginState extends State<Login> {
         .getDocuments()
         .then((QuerySnapshot docs) {
       if (docs.documents.length != 0) {
-        // id = docs.documents[0].documentID;
-        // tem usuario cadastrado
-        if (docs.documents[0].data['admin'] == 1) {
-          //administrador
-
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => InicialAdministrador()));
-        } else {
-          //funcionario
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => InicialFuncionario()));
-        }
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => InicialAdministrador()));
+        //funcionario
       } else {
-        //não ta cadastrado
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              content: new Text(
-                "Usuário e/ou senha incorreta!",
-                style: new TextStyle(color: Colors.red),
-              ),
-              actions: <Widget>[
-                // define os botões na base do dialogo
-                new FlatButton(
-                  child: new Text("Fechar"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text("Login ou senha inválidos!"),
+          backgroundColor: Colors.redAccent,
+          duration: Duration(seconds: 2),
+        ));
       }
     });
   }

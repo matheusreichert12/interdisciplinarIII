@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:interdisciplinar/contatos.dart';
 import 'package:interdisciplinar/equipamento.dart';
+import 'package:interdisciplinar/ordem_servico.dart';
 
 class InicialAdministrador extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
         break;
       case 2:
         return new Container(
-          child: new Text("Ordem de Serviço"),
+          child: new OrdemServico(),
         );
         break;
       default:
@@ -43,9 +44,8 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
         initialIndex: _pageIndex,
         items: <Widget>[
           Icon(Icons.build, size: 30, color: Colors.white),
-           Icon(Icons.group, size: 30, color: Colors.white),
+          Icon(Icons.group, size: 30, color: Colors.white),
           Icon(Icons.assignment, size: 30, color: Colors.white),
-         
         ],
         color: Colors.grey,
         backgroundColor: Colors.white,
