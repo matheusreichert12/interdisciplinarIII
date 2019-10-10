@@ -57,21 +57,27 @@ class _GraficosState extends State<Graficos> {
       animate: true,
       animationDuration: Duration(seconds: 1),
     );
-    return new Column(
-      children: <Widget>[
-        Text(
-          "Lucro Bruto com Ordens por mês",
-          style: TextStyle(fontSize: 20),
-          textAlign: TextAlign.center,
-        ),
-        Padding(
-          padding: EdgeInsets.all(4),
-          child: SizedBox(
-            child: chart,
-            height: 400,
+    return SingleChildScrollView(
+      
+
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Gráficos",
+            style: TextStyle(fontSize: 20),
+            textAlign: TextAlign.center,
           ),
-        ),
-      ],
+          RaisedButton(
+            child: Text("Lucro Bruto ordens por mês"),
+            onPressed: () {},
+          ),
+          Text(
+            "Lucro Bruto total do Ano",
+            style: TextStyle(fontSize: 20),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
