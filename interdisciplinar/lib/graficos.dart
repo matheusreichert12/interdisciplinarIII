@@ -62,16 +62,18 @@ class _GraficosState extends State<Graficos> {
       child: Column(
         children: <Widget>[
           Text(
-            "Lucro Bruto com Ordens por mês",
+            "Gráficos",
             style: TextStyle(fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          Padding(
-            padding: EdgeInsets.all(4),
-            child: SizedBox(
-              child: chart,
-              height: 400,
-            ),
+          RaisedButton(
+            child: Text("Lucro Bruto ordens por mês"),
+            onPressed: () {},
+          ),
+          Text(
+            "Lucro Bruto total do Ano",
+            style: TextStyle(fontSize: 20),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
