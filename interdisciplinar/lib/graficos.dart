@@ -58,10 +58,12 @@ class _GraficosState extends State<Graficos> {
       animationDuration: Duration(seconds: 1),
     );
     return SingleChildScrollView(
-      
-
       child: Column(
         children: <Widget>[
+          SizedBox(
+            child: chart,
+            height: 500,
+          ),
           Text(
             "Gráficos",
             style: TextStyle(fontSize: 20),
