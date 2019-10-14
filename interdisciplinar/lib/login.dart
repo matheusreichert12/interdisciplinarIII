@@ -122,9 +122,11 @@ class _LoginState extends State<Login> {
         .getDocuments()
         .then((QuerySnapshot docs) {
       if (docs.documents.length != 0) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => InicialAdministrador()));
-        //funcionario
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    InicialAdministrador(docs.documents[0].data['admin'])));
       } else {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           content: Text("Login ou senha inválidos!"),

@@ -4,11 +4,15 @@ import 'package:interdisciplinar/graficos.dart';
 import 'package:interdisciplinar/ordem_servicoIncluir.dart';
 
 class OrdemServico extends StatefulWidget {
+  final int admin;
+  OrdemServico(this.admin);
   @override
-  _OrdemServicoState createState() => _OrdemServicoState();
+  _OrdemServicoState createState() => _OrdemServicoState(this.admin);
 }
 
 class _OrdemServicoState extends State<OrdemServico> {
+  final int admin;
+  _OrdemServicoState(this.admin);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -134,7 +138,7 @@ class _OrdemServicoState extends State<OrdemServico> {
                                       _buildCircle("2", "Devolução", status, 2),
                                     ],
                                   ),
-                                  status <= 2
+                                  status <= 2 && admin == 1
                                       ? RaisedButton(
                                           child: Text(status == 1
                                               ? "Confirmar Entrega"
@@ -142,38 +146,11 @@ class _OrdemServicoState extends State<OrdemServico> {
                                           textColor: Colors.white,
                                           color: Theme.of(context).primaryColor,
                                           onPressed: () {
+                                            int teste = status + 1;
                                             Firestore.instance
                                                 .collection("ordens")
                                                 .document(document.documentID)
-                                                .updateData({
-                                              'clienteID':
-                                                  document["clienteID"],
-                                              'data_devolucao':
-                                                  document["data_devolucao"],
-                                              "equipamento": {
-                                                "equipamentoID":
-                                                    "-LqCk1WyAUODo3ND4B4M",
-                                                "valorDia":
-                                                    document["equipamento"]
-                                                        ["valorDia"],
-                                                "valorMes":
-                                                    document["equipamento"]
-                                                        ["valorMes"],
-                                                "nome": document["equipamento"]
-                                                    ["nome"],
-                                                "descricaoAdicional": "",
-                                                "valorAdicional": 0.0
-                                              },
-                                              "desconto": document["desconto"],
-                                              "data_entrega":
-                                                  document["data_entrega"],
-                                              "status": status++,
-                                              "dias": document["dias"],
-                                              "valorEquipamentos":
-                                                  document["valorEquipamentos"],
-                                              "valorTotal":
-                                                  document["valorTotal"]
-                                            });
+                                                .updateData({"status": teste});
                                           },
                                         )
                                       : Container(

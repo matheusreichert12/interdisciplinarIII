@@ -5,14 +5,19 @@ import 'package:interdisciplinar/equipamento.dart';
 import 'package:interdisciplinar/ordem_servico.dart';
 
 class InicialAdministrador extends StatefulWidget {
+  final int admin;
+  InicialAdministrador(this.admin);
   @override
-  _InicialAdministradorState createState() => _InicialAdministradorState();
+  _InicialAdministradorState createState() =>
+      _InicialAdministradorState(this.admin);
 }
 
 class _InicialAdministradorState extends State<InicialAdministrador> {
   int _pageIndex = 0;
 
   Widget _showPage = new Equipamento();
+  final int admin;
+  _InicialAdministradorState(this.admin);
 
   Widget _pageChooser(int page) {
     switch (page) {
@@ -26,7 +31,7 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
         break;
       case 2:
         return new Container(
-          child: new OrdemServico(),
+          child: new OrdemServico(this.admin),
         );
         break;
       default:

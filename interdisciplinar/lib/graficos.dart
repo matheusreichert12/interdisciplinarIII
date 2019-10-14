@@ -1,6 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Graficos extends StatefulWidget {
   @override
@@ -66,14 +65,56 @@ class _GraficosState extends State<Graficos> {
             style: TextStyle(fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          RaisedButton(
-            child: Text("Lucro Bruto ordens por mês"),
-            onPressed: () {},
+          SizedBox(
+            height: 20,
           ),
-          Text(
-            "Lucro Bruto total do Ano",
-            style: TextStyle(fontSize: 20),
-            textAlign: TextAlign.center,
+          Container(
+            height: 50,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.all(
+                Radius.circular(30),
+              ),
+            ),
+            child: SizedBox.expand(
+              child: FlatButton(
+                child: Text(
+                  "Receita bruta por mês",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),SizedBox(
+            height: 20,
+          ),
+          Container(
+            height: 50,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.all(
+                Radius.circular(30),
+              ),
+            ),
+            child: SizedBox.expand(
+              child: FlatButton(
+                child: Text(
+                  "Receita bruta por ano",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
           ),
         ],
       ),
