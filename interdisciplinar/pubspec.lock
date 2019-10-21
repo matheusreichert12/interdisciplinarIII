@@ -64,13 +64,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.26"
-  date_format:
-    dependency: "direct main"
-    description:
-      name: date_format
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.6"
   firebase_core:
     dependency: transitive
     description:
@@ -109,13 +102,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  image_picker:
-    dependency: "direct main"
-    description:
-      name: image_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.12+1"
   intl:
     dependency: transitive
     description:

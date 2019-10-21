@@ -14,6 +14,14 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
   final _descricaoAdicional = TextEditingController();
   final _valorAdicional = TextEditingController();
 
+  bool _operador = false;
+
+  void _onChange(bool value) {
+    setState(() {
+      _operador = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +75,20 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                 ),
                 SizedBox(
                   height: 10,
+                ),
+                SwitchListTile(
+                  title: Text("Contém operador"),
+                  secondary: Icon(
+                    Icons.person,
+                    color: (_operador == true) ? Colors.green : Colors.grey,
+                  ),
+                  onChanged: (bool value) {
+                    _onChange(value);
+                  },
+                  value: _operador,
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Card(
                   elevation: 5.0,
