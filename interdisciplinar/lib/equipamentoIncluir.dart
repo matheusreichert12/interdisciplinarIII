@@ -13,6 +13,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
   final _valorMes = TextEditingController();
   final _descricaoAdicional = TextEditingController();
   final _valorAdicional = TextEditingController();
+  final _horaOperador = TextEditingController();
 
   bool _operador = false;
 
@@ -53,29 +54,6 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                 SizedBox(
                   height: 10,
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  controller: _valorDiaria,
-                  decoration: InputDecoration(
-                    hintText: "Valor diária",
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  controller: _valorMes,
-                  decoration: InputDecoration(
-                    hintText: "Valor ao Mês",
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
                 SwitchListTile(
                   title: Text("Contém operador"),
                   secondary: Icon(
@@ -88,8 +66,47 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                   value: _operador,
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
+                _operador == false
+                    ? TextFormField(
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        controller: _valorDiaria,
+                        decoration: InputDecoration(
+                          hintText: "Valor diária",
+                        ),
+                      )
+                    : SizedBox(
+                        height: 0,
+                      ),
+                _operador == false
+                    ? TextFormField(
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        controller: _valorMes,
+                        decoration: InputDecoration(
+                          hintText: "Valor ao Mês",
+                        ),
+                      )
+                    : SizedBox(
+                        height: 0,
+                      ),
+                _operador == true
+                    ? TextFormField(
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        controller: _horaOperador,
+                        decoration: InputDecoration(
+                          hintText: "Valor hora operador",
+                        ),
+                      )
+                    : SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                 Card(
                   elevation: 5.0,
                   margin: EdgeInsets.zero,
