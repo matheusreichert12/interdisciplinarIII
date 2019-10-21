@@ -1,4 +1,4 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+/*import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meta/meta.dart';
 
 NotificationDetails get _noSound {
@@ -53,3 +53,4 @@ Future _showNotification(
   int id = 0,
 }) =>
     notifications.show(id, title, body, type);
+*/

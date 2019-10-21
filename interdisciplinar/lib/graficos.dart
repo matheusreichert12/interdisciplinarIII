@@ -1,6 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Graficos extends StatefulWidget {
   @override
@@ -11,28 +10,28 @@ class _GraficosState extends State<Graficos> {
   @override
   Widget build(BuildContext context) {
     var data = [
-      OrdinalSales('Jan', 10000),
-      OrdinalSales('Fev', 25000),
-      OrdinalSales('Mar', 30000),
-      OrdinalSales('Abr', 8500),
-      OrdinalSales('Mai', 8500),
-      OrdinalSales('Jun', 8500),
-      OrdinalSales('Jul', 8500),
-      OrdinalSales('Ago', 8500),
-      OrdinalSales('Set', 8500),
-      OrdinalSales('Out', 8500),
-      OrdinalSales('Nov', 8500),
-      OrdinalSales('Dez', 8500),
+      Gra('Jan', 10000),
+      Gra('Fev', 25000),
+      Gra('Mar', 30000),
+      Gra('Abr', 8500),
+      Gra('Mai', 8500),
+      Gra('Jun', 8500),
+      Gra('Jul', 8500),
+      Gra('Ago', 8500),
+      Gra('Set', 8500),
+      Gra('Out', 8500),
+      Gra('Nov', 8500),
+      Gra('Dez', 8500),
     ];
 
     var series = [
       charts.Series(
-          domainFn: (OrdinalSales sales, _) => sales.year,
-          measureFn: (OrdinalSales sales, _) => sales.sales,
+          domainFn: (Gra sales, _) => sales.year,
+          measureFn: (Gra sales, _) => sales.sales,
           id: 'Sales',
           data: data,
           colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-          labelAccessorFn: (OrdinalSales sales, _) =>
+          labelAccessorFn: (Gra sales, _) =>
               'R\$${sales.sales.toStringAsFixed(2)}')
     ];
 
@@ -85,11 +84,11 @@ class _GraficosState extends State<Graficos> {
   }
 }
 
-class OrdinalSales {
+class Gra {
   final String year;
   final double sales;
 
-  OrdinalSales(this.year, this.sales);
+  Gra(this.year, this.sales);
 }
 
 class Sales {
