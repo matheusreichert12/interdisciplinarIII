@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:interdisciplinar/contatosAlterar.dart';
 import 'package:interdisciplinar/contatosIncluir.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,7 +32,12 @@ class _ContatosState extends State<Contatos> {
                         Expanded(
                           child: ListTile(
                             onTap: () {
-                              //updateAlertDialog(context, document.documentID);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ContatosAlterar(
+                                            idCliente: document.documentID,
+                                          )));
                             },
                             leading: CircleAvatar(
                                 child: Icon(
