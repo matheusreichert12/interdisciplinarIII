@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:interdisciplinar/aula/listagem.dart';
 import 'package:interdisciplinar/criarconta.dart';
 import 'package:interdisciplinar/inicialAdministrador.dart';
 
@@ -114,7 +115,10 @@ class _LoginState extends State<Login> {
   }
 
   verificaLogin() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Listagem()));
     //String id = "";
+    /*
     Firestore.instance
         .collection("usuarios")
         .where("login", isEqualTo: _login.text)
@@ -135,5 +139,6 @@ class _LoginState extends State<Login> {
         ));
       }
     });
+    */
   }
 }
