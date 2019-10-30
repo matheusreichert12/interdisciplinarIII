@@ -1,7 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:interdisciplinar/aula/listagem.dart';
 import 'package:interdisciplinar/contatos.dart';
 import 'package:interdisciplinar/equipamento.dart';
+import 'package:interdisciplinar/graficos.dart';
 import 'package:interdisciplinar/ordem_servico.dart';
 
 class InicialAdministrador extends StatefulWidget {
@@ -34,6 +36,16 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
           child: new OrdemServico(this.admin),
         );
         break;
+      case 3:
+        return new Container(
+          child: new Graficos(),
+        );
+        break;
+      case 4:
+        return new Container(
+          child: new Listagem(),
+        );
+        break;
       default:
         return new Container(
           child: new Text("Página não Encontrada"),
@@ -51,6 +63,8 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
           Icon(Icons.build, size: 30, color: Colors.white),
           Icon(Icons.group, size: 30, color: Colors.white),
           Icon(Icons.assignment, size: 30, color: Colors.white),
+          Icon(Icons.pie_chart, size: 30, color: Colors.white),
+          Icon(Icons.school, size: 30, color: Colors.white),
         ],
         color: Colors.grey,
         backgroundColor: Colors.white,

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:interdisciplinar/aula/filmesEditar.dart';
 
 class Listagem extends StatefulWidget {
   @override
@@ -13,6 +14,17 @@ class _ListagemState extends State<Listagem> {
       appBar: AppBar(
         title: Text("Netflix"),
         centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => FilmesEditar(
+                        tipoEdicao: "inc",
+                      )));
+        },
       ),
       body: Column(
         children: <Widget>[
@@ -46,40 +58,50 @@ class _ListagemState extends State<Listagem> {
                           itemCount: snapshot.data.documents.length,
                           itemBuilder: (context, index) {
                             return Card(
+                                elevation: 5,
                                 // Lista os produtos
                                 child: ListTile(
-                              //snapshot.data.documents[index].documentID.toString() - pega o ID
-                              title: Text(
-                                  snapshot
-                                      .data.documents[index].data["nomeFilme"],
-                                  style: TextStyle(fontSize: 25)),
-                              subtitle: Text(
-                                  "R\$ " +
+                                  //snapshot.data.documents[index].documentID.toString() - pega o ID
+                                  title: Text(
                                       snapshot.data.documents[index]
-                                          .data["precoFilme"]
-                                          .toString(),
-                                  style: TextStyle(fontSize: 20)),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  IconButton(
-                                    icon: Icon(Icons.edit),
-                                    color: Colors.black,
-                                    onPressed: () {
-                                      //Navigator.push(context, MaterialPageRoute(builder: (context) => FilmesEditar("alt",snapshot.data.documents[index])));
-                                    },
+                                          .data["nomeFilme"],
+                                      style: TextStyle(fontSize: 25)),
+                                  subtitle: Text(
+                                      "R\$ " +
+                                          snapshot.data.documents[index]
+                                              .data["precoFilme"]
+                                              .toString(),
+                                      style: TextStyle(fontSize: 20)),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      IconButton(
+                                        icon: Icon(Icons.edit),
+                                        color: Colors.black,
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    FilmesEditar(
+                                                        tipoEdicao: "alt",
+                                                        dadosFilme: snapshot
+                                                            .data
+                                                            .documents[index]),
+                                              ));
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.delete),
+                                        color: Colors.black,
+                                        onPressed: () {
+                                          confirmaExclusao(
+                                              context, index, snapshot);
+                                        },
+                                      ),
+                                    ],
                                   ),
-                                  IconButton(
-                                    icon: Icon(Icons.delete),
-                                    color: Colors.black,
-                                    onPressed: () {
-                                      confirmaExclusao(
-                                          context, index, snapshot);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ));
+                                ));
                           });
                   }
                 }),
