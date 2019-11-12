@@ -27,6 +27,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
         title: Text("Equipamento"),
         centerTitle: true,
       ),
@@ -104,9 +105,9 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                     : SizedBox(
                         height: 10,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                SizedBox(
+                  height: 10,
+                ),
                 Card(
                   elevation: 5.0,
                   margin: EdgeInsets.zero,
@@ -188,11 +189,14 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
   void salvarEquipamento() {
     Firestore.instance.collection("equipamentos").document().setData({
       'nome': _nome.text,
-      'valorDia': _valorDiaria.text == "" ? 0 : double.parse(_valorDiaria.text),
-      'valorMes': _valorMes.text == "" ? 0 : double.parse(_valorMes.text),
+      'valorDia': _valorDiaria.text == "" ? 0 : double.parse(_valorDiaria.text.replaceAll(",", ".")),
+      'valorMes': _valorMes.text == "" ? 0 : double.parse(_valorMes.text.replaceAll(",", ".")),
       'descricaoAdicional': _descricaoAdicional.text,
       'valorAdicional':
-          _valorAdicional.text == "" ? 0 : double.parse(_valorAdicional.text),
+          _valorAdicional.text == "" ? 0 : double.parse(_valorAdicional.text.replaceAll(",", ".")),
+      'valorHoraOperador':
+          _horaOperador.text == "" ? 0 : double.parse(_horaOperador.text.replaceAll(",", ".")),
+      'operador': _operador,
     }).then((_) {
       Navigator.pop(context);
     });

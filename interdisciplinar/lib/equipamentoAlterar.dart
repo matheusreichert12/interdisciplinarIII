@@ -12,7 +12,7 @@ class EquipamentoAlterar extends StatefulWidget {
 class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
   final String idEquipamento;
   _EquipamentoAlterarState({this.idEquipamento});
-
+  bool _operador = false;
   @override
   initState() {
     super.initState();
@@ -32,6 +32,9 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
         _valorMes.text = docs.data['valorMes'].toString();
         _descricaoAdicional.text = docs.data['descricaoAdicional'];
         _valorAdicional.text = docs.data['valorAdicional'].toString();
+        _horaOperador.text = docs.data['valorHoraOperador'].toString();
+        _operador = docs.data['operador'];
+        print(_operador);
       }
     });
   }
@@ -42,11 +45,19 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
   final _valorMes = TextEditingController();
   final _descricaoAdicional = TextEditingController();
   final _valorAdicional = TextEditingController();
+  final _horaOperador = TextEditingController();
+
+  void _onChange(bool value) {
+    setState(() {
+      _operador = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
         title: Text("Alteração Equipamento"),
         centerTitle: true,
       ),
@@ -74,26 +85,56 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
                 SizedBox(
                   height: 10,
                 ),
+                SwitchListTile(
+                  title: Text("Contém operador"),
+                  secondary: Icon(
+                    Icons.person,
+                    color: (_operador == true) ? Colors.green : Colors.grey,
+                  ),
+                  onChanged: (bool value) {
+                    _onChange(value);
+                  },
+                  value: _operador,
+                ),
                 SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  controller: _valorDiaria,
-                  decoration: InputDecoration(
-                    hintText: "Valor diário",
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  controller: _valorMes,
-                  decoration: InputDecoration(
-                    hintText: "Valor ao Mês",
-                  ),
-                ),
+                _operador == false
+                    ? TextFormField(
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        controller: _valorDiaria,
+                        decoration: InputDecoration(
+                          hintText: "Valor diária",
+                        ),
+                      )
+                    : SizedBox(
+                        height: 0,
+                      ),
+                _operador == false
+                    ? TextFormField(
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        controller: _valorMes,
+                        decoration: InputDecoration(
+                          hintText: "Valor ao Mês",
+                        ),
+                      )
+                    : SizedBox(
+                        height: 0,
+                      ),
+                _operador == true
+                    ? TextFormField(
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        controller: _horaOperador,
+                        decoration: InputDecoration(
+                          hintText: "Valor hora operador",
+                        ),
+                      )
+                    : SizedBox(
+                        height: 10,
+                      ),
                 SizedBox(
                   height: 10,
                 ),

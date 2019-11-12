@@ -19,14 +19,18 @@ environment:
 dependencies:
   
   curved_navigation_bar: ^0.1.26
-  cloud_firestore: ^0.10.1
-  firebase_storage: ^2.1.0+1
+  cloud_firestore: ^0.12.9+6
+  
+  firebase_storage: ^3.0.6
   url_launcher: ^5.1.4
   scoped_model: ^1.0.1
   flutter:
     sdk: flutter
   flare_flutter: ^1.5.0
   charts_flutter: ^0.8.1 
+  firebase_auth: ^0.10.0
+  firebase_core: ^0.4.0
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

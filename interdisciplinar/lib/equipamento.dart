@@ -16,9 +16,7 @@ class _EquipamentoState extends State<Equipamento> {
         title: TextField(
           style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            hintText: "Pesquisar",
-            hintStyle: TextStyle(color: Colors.white)
-          ),
+              hintText: "Pesquisar", hintStyle: TextStyle(color: Colors.white)),
         ),
         centerTitle: true,
         backgroundColor: Colors.grey,
@@ -97,6 +95,7 @@ class _EquipamentoState extends State<Equipamento> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => EquipamentoIncluir()));

@@ -84,6 +84,7 @@ class _ContatosState extends State<Contatos> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => ContatosIncluir()));

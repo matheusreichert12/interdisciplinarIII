@@ -17,6 +17,7 @@ class _ContatosIncluirState extends State<ContatosIncluir> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
         title: Text("Cadastrar Cliente"),
         centerTitle: true,
       ),

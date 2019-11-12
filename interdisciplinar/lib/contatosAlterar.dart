@@ -46,6 +46,7 @@ class _ContatosAlterarState extends State<ContatosAlterar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
         title: Text("Alterar Cliente"),
         centerTitle: true,
       ),

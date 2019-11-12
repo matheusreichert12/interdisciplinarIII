@@ -37,6 +37,7 @@ class _OrdemServicoState extends State<OrdemServico> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.green,
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => OrdemServicoIncluir()));
