@@ -133,12 +133,3 @@ class Gra {
   Gra(this.year, this.sales);
 }
 
-class Sales {
-  final String day;
-  final int sold;
-  final charts.Color color;
-
-  Sales(this.day, this.sold, Color color)
-      : this.color = charts.Color(
-            r: color.red, g: color.green, b: color.blue, a: color.alpha);
-}

@@ -9,12 +9,22 @@ class Equipamento extends StatefulWidget {
 }
 
 class _EquipamentoState extends State<Equipamento> {
+  TextEditingController filtro = TextEditingController();
+
+  var campoFiltragem;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
+          controller: filtro,
           style: TextStyle(color: Colors.white),
+          onChanged: (value) {
+            setState(() {
+              campoFiltragem = value;
+            });
+          },
           decoration: InputDecoration(
               hintText: "Pesquisar", hintStyle: TextStyle(color: Colors.white)),
         ),
@@ -26,7 +36,11 @@ class _EquipamentoState extends State<Equipamento> {
         children: <Widget>[
           Expanded(
             child: StreamBuilder(
-              stream: Firestore.instance.collection('equipamentos').snapshots(),
+              stream: Firestore.instance
+                  .collection('equipamentos')
+                  .orderBy("nome")
+                  .startAt([campoFiltragem]).endAt(
+                      [campoFiltragem + '\uf8ff']).snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {

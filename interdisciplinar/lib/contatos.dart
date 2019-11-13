@@ -13,6 +13,16 @@ class _ContatosState extends State<Contatos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: TextField(
+          style: TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+              hintText: "Pesquisar", hintStyle: TextStyle(color: Colors.white)),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.grey,
+        leading: Icon(Icons.search),
+      ),
       body: Padding(
         padding: EdgeInsets.all(0),
         child: StreamBuilder(

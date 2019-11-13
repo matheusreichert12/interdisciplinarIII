@@ -15,9 +15,9 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
   bool _operador = false;
   @override
   initState() {
+    buscaDados();
     super.initState();
     // Add listeners to this class
-    buscaDados();
   }
 
   buscaDados() {
@@ -27,14 +27,13 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
         .snapshots()
         .forEach((DocumentSnapshot docs) {
       if (docs.data.length != 0) {
+        _onChange(docs.data['operador']);
         _nome.text = docs.data['nome'];
         _valorDiaria.text = docs.data['valorDia'].toString();
         _valorMes.text = docs.data['valorMes'].toString();
         _descricaoAdicional.text = docs.data['descricaoAdicional'];
         _valorAdicional.text = docs.data['valorAdicional'].toString();
         _horaOperador.text = docs.data['valorHoraOperador'].toString();
-        _operador = docs.data['operador'];
-        print(_operador);
       }
     });
   }
@@ -48,6 +47,7 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
   final _horaOperador = TextEditingController();
 
   void _onChange(bool value) {
+    if (!mounted) return;
     setState(() {
       _operador = value;
     });
@@ -89,7 +89,7 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
                   title: Text("Contém operador"),
                   secondary: Icon(
                     Icons.person,
-                    color: (_operador == true) ? Colors.green : Colors.grey,
+                    color: (_operador) ? Colors.green : Colors.grey,
                   ),
                   onChanged: (bool value) {
                     _onChange(value);
@@ -222,11 +222,20 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
         .document(this.idEquipamento)
         .updateData({
       'nome': _nome.text,
-      'valorDia': _valorDiaria.text == "" ? 0 : double.parse(_valorDiaria.text),
-      'valorMes': _valorMes.text == "" ? 0 : double.parse(_valorMes.text),
+      'valorDia': _valorDiaria.text == "" || _operador
+          ? 0
+          : double.parse(_valorDiaria.text.replaceAll(",", ".")),
+      'valorMes': _valorMes.text == "" || _operador
+          ? 0
+          : double.parse(_valorMes.text.replaceAll(",", ".")),
       'descricaoAdicional': _descricaoAdicional.text,
-      'valorAdicional':
-          _valorAdicional.text == "" ? 0 : double.parse(_valorAdicional.text),
+      'valorAdicional': _valorAdicional.text == ""
+          ? 0
+          : double.parse(_valorAdicional.text.replaceAll(",", ".")),
+      'valorHoraOperador': _horaOperador.text == "" || _operador == false
+          ? 0
+          : double.parse(_horaOperador.text.replaceAll(",", ".")),
+      'operador': _operador,
     }).then((_) {
       Navigator.pop(context);
     });
