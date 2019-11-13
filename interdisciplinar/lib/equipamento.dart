@@ -11,7 +11,7 @@ class Equipamento extends StatefulWidget {
 class _EquipamentoState extends State<Equipamento> {
   TextEditingController filtro = TextEditingController();
 
-  var campoFiltragem;
+  var campoFiltragem = "";
 
   @override
   Widget build(BuildContext context) {
