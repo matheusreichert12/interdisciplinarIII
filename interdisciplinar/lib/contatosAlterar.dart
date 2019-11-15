@@ -136,9 +136,9 @@ class _ContatosAlterarState extends State<ContatosAlterar> {
 
   void alterarCliente() {
     Firestore.instance.collection("clientes").document(this.idCliente).updateData({
-      'nome': _nome.text,
-      'endereco': _endereco.text,
-      'cidade': _cidade.text,
+      'nome': _nome.text.toUpperCase(),
+      'endereco': _endereco.text.toUpperCase(),
+      'cidade': _cidade.text.toUpperCase(),
       'telefone': _telefone.text,
     }).then((_) {
       Navigator.pop(context);

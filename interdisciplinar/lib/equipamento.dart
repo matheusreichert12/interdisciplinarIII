@@ -39,8 +39,8 @@ class _EquipamentoState extends State<Equipamento> {
               stream: Firestore.instance
                   .collection('equipamentos')
                   .orderBy("nome")
-                  .startAt([campoFiltragem]).endAt(
-                      [campoFiltragem + '\uf8ff']).snapshots(),
+                  .startAt([campoFiltragem.toUpperCase()]).endAt(
+                      [campoFiltragem.toUpperCase() + '\uf8ff']).snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {

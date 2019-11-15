@@ -29,12 +29,6 @@ class _OrdemServicoState extends State<OrdemServico> {
           centerTitle: true,
           backgroundColor: Colors.grey,
           leading: Icon(Icons.search),
-          bottom: TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.assignment)),
-              Tab(icon: Icon(Icons.insert_chart)),
-            ],
-          ),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.green,
@@ -44,130 +38,141 @@ class _OrdemServicoState extends State<OrdemServico> {
           },
           child: Icon(Icons.add),
         ),
-        body: TabBarView(
-          children: [
-            StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance.collection("ordens").snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) {
-                  return new Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else
-                  return new ListView(
-                    children: snapshot.data.documents.map((document) {
-                      int status = document["status"];
-                      return new Card(
-                        elevation: 5.0,
-                        margin: EdgeInsets.all(8),
-                        child: ExpansionTile(
-                          title: Text(
-                            "${document["nomeCliente"]}",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    "Equipamento: ${document["equipamento"]["nome"]}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  Text(
-                                      "Data Entrega: ${document["data_entrega"]}"),
-                                  SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  Text(
-                                      "Valor dia: R\$ ${document["equipamento"]["valorDia"].toStringAsFixed(2)} x ${document["dias"]} dias"),
-                                  SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  Text(
-                                      "SubTotal: R\$ ${document["valorEquipamentos"].toStringAsFixed(2)}"),
-                                  SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  Text(
-                                      "Desconto: R\$ ${document["desconto"].toStringAsFixed(2)}"),
-                                  SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  Text(
-                                    "Total: R\$ ${document["valorTotal"].toStringAsFixed(2)}",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  SizedBox(
-                                    height: 20.0,
-                                  ),
-                                  Text(
-                                    "Status da Ordem:",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      _buildCircle("1", "Entrega", status, 1),
-                                      Container(
-                                        height: 1.0,
-                                        width: 40.0,
-                                        color: Colors.grey[500],
-                                      ),
-                                      _buildCircle("2", "Devolução", status, 2),
-                                    ],
-                                  ),
-                                  status <= 2 && admin == 1
-                                      ? RaisedButton(
-                                          child: Text(status == 1
-                                              ? "Confirmar Entrega"
-                                              : "Confirmar Devolução"),
-                                          textColor: Colors.white,
-                                          color: Theme.of(context).primaryColor,
-                                          onPressed: () {
-                                            int teste = status + 1;
-                                            Firestore.instance
-                                                .collection("ordens")
-                                                .document(document.documentID)
-                                                .updateData({"status": teste});
-                                          },
-                                        )
-                                      : Container(
-                                          height: 10,
-                                        ),
-                                ],
+        body: Column(
+          children: <Widget>[
+            Text("aaaa"),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance.collection("ordens").snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return new Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else
+                    return new ListView(
+                      children: snapshot.data.documents.map((document) {
+                        int status = document["status"];
+                        return new Card(
+                          elevation: 5.0,
+                          margin: EdgeInsets.all(8),
+                          child: ExpansionTile(
+                            leading: status == 1
+                                ? Icon(Icons.airport_shuttle)
+                                : status == 2
+                                    ? Icon(Icons.beenhere)
+                                    : Icon(Icons.beenhere,color: Colors.green,),
+                            trailing: Text("15/11/2019"),
+                            title: Text(
+                              "${document["nomeCliente"]}",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[700],
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  );
-              },
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      "Equipamento: ${document["equipamento"]["nome"]}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Text(
+                                        "Data Entrega: ${document["data_entrega"]}"),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Text(
+                                        "Valor dia: R\$ ${document["equipamento"]["valorDia"].toStringAsFixed(2)} x ${document["dias"]} dias"),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Text(
+                                        "SubTotal: R\$ ${document["valorEquipamentos"].toStringAsFixed(2)}"),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Text(
+                                        "Desconto: R\$ ${document["desconto"].toStringAsFixed(2)}"),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Text(
+                                      "Total: R\$ ${document["valorTotal"].toStringAsFixed(2)}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Text(
+                                      "Status da Ordem:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        _buildCircle("1", "Entrega", status, 1),
+                                        Container(
+                                          height: 1.0,
+                                          width: 40.0,
+                                          color: Colors.grey[500],
+                                        ),
+                                        _buildCircle(
+                                            "2", "Devolução", status, 2),
+                                      ],
+                                    ),
+                                    status <= 2 && admin == 1
+                                        ? RaisedButton(
+                                            child: Text(status == 1
+                                                ? "Confirmar Entrega"
+                                                : "Confirmar Devolução"),
+                                            textColor: Colors.white,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            onPressed: () {
+                                              int teste = status + 1;
+                                              Firestore.instance
+                                                  .collection("ordens")
+                                                  .document(document.documentID)
+                                                  .updateData(
+                                                      {"status": teste});
+                                            },
+                                          )
+                                        : Container(
+                                            height: 10,
+                                          ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    );
+                },
+              ),
             ),
-            Graficos(),
           ],
         ),
       ),

@@ -10,12 +10,22 @@ class Contatos extends StatefulWidget {
 }
 
 class _ContatosState extends State<Contatos> {
+  TextEditingController filtro = TextEditingController();
+
+  var campoFiltragem = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
+          controller: filtro,
           style: TextStyle(color: Colors.white),
+          onChanged: (value) {
+            setState(() {
+              campoFiltragem = value;
+            });
+          },
           decoration: InputDecoration(
               hintText: "Pesquisar", hintStyle: TextStyle(color: Colors.white)),
         ),
@@ -26,7 +36,11 @@ class _ContatosState extends State<Contatos> {
       body: Padding(
         padding: EdgeInsets.all(0),
         child: StreamBuilder(
-          stream: Firestore.instance.collection('clientes').snapshots(),
+          stream: Firestore.instance
+              .collection('clientes')
+              .orderBy("nome")
+              .startAt([campoFiltragem.toUpperCase()]).endAt(
+                  [campoFiltragem.toUpperCase() + '\uf8ff']).snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {

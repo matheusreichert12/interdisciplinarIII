@@ -107,9 +107,9 @@ class _ContatosIncluirState extends State<ContatosIncluir> {
 
   void salvarCliente() {
     Firestore.instance.collection("clientes").document().setData({
-      'nome': _nome.text,
-      'endereco': _endereco.text,
-      'cidade': _cidade.text,
+      'nome': _nome.text.toUpperCase(),
+      'endereco': _endereco.text.toUpperCase(),
+      'cidade': _cidade.text.toUpperCase(),
       'telefone': _telefone.text,
     }).then((_) {
       Navigator.pop(context);

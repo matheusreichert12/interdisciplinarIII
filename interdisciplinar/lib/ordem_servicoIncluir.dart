@@ -9,6 +9,36 @@ class OrdemServicoIncluir extends StatefulWidget {
 class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
   var _mySelectionCliente;
   var _mySelectionEquipamento;
+  bool _operador = false;
+  double _valorHora = 0;
+  double _valorDia = 0;
+  double _subtotal = 0;
+  double _total = 0;
+  TextEditingController quantDias = TextEditingController();
+  TextEditingController quantHoras = TextEditingController();
+  TextEditingController desconto = TextEditingController();
+
+  void _onChange(bool value, double valor, double valorDia) {
+    if (!mounted) return;
+    setState(() {
+      _operador = value;
+      _valorHora = valor;
+      _valorDia = valorDia;
+    });
+  }
+
+  buscaDados(String idEquipamento) {
+    Firestore.instance
+        .collection("equipamentos")
+        .document(idEquipamento)
+        .snapshots()
+        .forEach((DocumentSnapshot docs) {
+      if (docs.data.length != 0) {
+        _onChange(docs.data['operador'], docs.data['valorHoraOperador'],
+            docs.data['valorDia']);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +75,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                           },
                           items: snapshot.data.documents.map((map) {
                             return new DropdownMenuItem<String>(
-                              value: map["nome"].toString(),
+                              value: map.documentID,
                               child: new Text(
                                 map["nome"],
                               ),
@@ -60,8 +90,9 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                   children: <Widget>[
                     Text("Equipamento:   "),
                     StreamBuilder<QuerySnapshot>(
-                      stream:
-                          Firestore.instance.collection('equipamentos').snapshots(),
+                      stream: Firestore.instance
+                          .collection('equipamentos')
+                          .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (!snapshot.hasData) return const Text('Loading...');
@@ -72,11 +103,12 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                           onChanged: (String newValue) {
                             setState(() {
                               _mySelectionEquipamento = newValue;
+                              buscaDados(_mySelectionEquipamento);
                             });
                           },
                           items: snapshot.data.documents.map((map) {
                             return new DropdownMenuItem<String>(
-                              value: map["nome"].toString(),
+                              value: map.documentID,
                               child: new Text(
                                 map["nome"],
                               ),
@@ -87,37 +119,93 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "Quantidade de dias",
+                SwitchListTile(
+                  title: Text("Contém operador"),
+                  secondary: Icon(
+                    Icons.person,
+                    color: (_operador) ? Colors.green : Colors.grey,
                   ),
+                  onChanged: (bool value) {},
+                  value: _operador,
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Text("Valor diária: R\$80.00"),
+                _operador
+                    ? TextFormField(
+                        controller: quantHoras,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintText: "Quantidade de horas",
+                        ),
+                        onFieldSubmitted: (value) {
+                          double valu =
+                              double.parse(value.replaceAll(",", "."));
+                          double subtotal = valu * _valorHora;
+                          double total = desconto.text == ""
+                              ? subtotal
+                              : subtotal -
+                                  double.parse(
+                                      desconto.text.replaceAll(",", "."));
+                          setState(() {
+                            _subtotal = subtotal;
+                            _total = total;
+                          });
+                        },
+                      )
+                    : TextFormField(
+                        onFieldSubmitted: (value) {
+                          double valu =
+                              double.parse(value.replaceAll(",", "."));
+                          double subtotal = valu * _valorDia;
+                          double total = desconto.text == ""
+                              ? subtotal
+                              : subtotal -
+                                  double.parse(
+                                      desconto.text.replaceAll(",", "."));
+                          setState(() {
+                            _subtotal = subtotal;
+                            _total = total;
+                          });
+                        },
+                        controller: quantDias,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintText: "Quantidade de dias",
+                        ),
+                      ),
                 SizedBox(
                   height: 10,
                 ),
-                Text("Subtotal: R\$80.00"),
+                _operador
+                    ? Text("Valor hora operador: R\$ ${_valorHora}")
+                    : Text("Valor diária: R\$ ${_valorDia}"),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Subtotal: R\$ ${_subtotal}"),
                 SizedBox(
                   height: 10,
                 ),
                 TextFormField(
+                  controller: desconto,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     hintText: "Desconto",
                   ),
+                  onFieldSubmitted: (value) {
+                    double valu = double.parse(value.replaceAll(",", "."));
+                    double total = _subtotal - valu;
+                    setState(() {
+                      _total = total;
+                    });
+                  },
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "Valor Total: R\$80.00",
+                  "Valor Total: R\$ ${_total}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 SizedBox(
@@ -143,6 +231,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                         ),
                       ),
                       onPressed: () {
+                        print(_mySelectionEquipamento);
                         Navigator.of(context).pop();
                       },
                     ),

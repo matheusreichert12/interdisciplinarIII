@@ -221,19 +221,19 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
         .collection("equipamentos")
         .document(this.idEquipamento)
         .updateData({
-      'nome': _nome.text,
+      'nome': _nome.text.toUpperCase(),
       'valorDia': _valorDiaria.text == "" || _operador
-          ? 0
+          ? 0.0
           : double.parse(_valorDiaria.text.replaceAll(",", ".")),
       'valorMes': _valorMes.text == "" || _operador
-          ? 0
+          ? 0.0
           : double.parse(_valorMes.text.replaceAll(",", ".")),
-      'descricaoAdicional': _descricaoAdicional.text,
+      'descricaoAdicional': _descricaoAdicional.text.toUpperCase(),
       'valorAdicional': _valorAdicional.text == ""
-          ? 0
+          ? 0.0
           : double.parse(_valorAdicional.text.replaceAll(",", ".")),
       'valorHoraOperador': _horaOperador.text == "" || _operador == false
-          ? 0
+          ? 0.0
           : double.parse(_horaOperador.text.replaceAll(",", ".")),
       'operador': _operador,
     }).then((_) {

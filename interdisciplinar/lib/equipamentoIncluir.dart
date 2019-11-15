@@ -188,14 +188,14 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
 
   void salvarEquipamento() {
     Firestore.instance.collection("equipamentos").document().setData({
-      'nome': _nome.text,
-      'valorDia': _valorDiaria.text == "" ? 0 : double.parse(_valorDiaria.text.replaceAll(",", ".")),
-      'valorMes': _valorMes.text == "" ? 0 : double.parse(_valorMes.text.replaceAll(",", ".")),
-      'descricaoAdicional': _descricaoAdicional.text,
+      'nome': _nome.text.toUpperCase(),
+      'valorDia': _valorDiaria.text == "" ? 0.0 : double.parse(_valorDiaria.text.replaceAll(",", ".")),
+      'valorMes': _valorMes.text == "" ? 0.0 : double.parse(_valorMes.text.replaceAll(",", ".")),
+      'descricaoAdicional': _descricaoAdicional.text.toUpperCase(),
       'valorAdicional':
-          _valorAdicional.text == "" ? 0 : double.parse(_valorAdicional.text.replaceAll(",", ".")),
+          _valorAdicional.text == "" ? 0.0 : double.parse(_valorAdicional.text.replaceAll(",", ".")),
       'valorHoraOperador':
-          _horaOperador.text == "" ? 0 : double.parse(_horaOperador.text.replaceAll(",", ".")),
+          _horaOperador.text == "" ? 0.0 : double.parse(_horaOperador.text.replaceAll(",", ".")),
       'operador': _operador,
     }).then((_) {
       Navigator.pop(context);
