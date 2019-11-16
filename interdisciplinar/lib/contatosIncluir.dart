@@ -46,6 +46,7 @@ class _ContatosIncluirState extends State<ContatosIncluir> {
                   height: 10,
                 ),
                 TextFormField(
+                  
                   keyboardType: TextInputType.text,
                   controller: _endereco,
                   decoration: InputDecoration(

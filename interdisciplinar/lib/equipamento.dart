@@ -75,15 +75,19 @@ class _EquipamentoState extends State<Equipamento> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 ),
-                                subtitle: document['valorMes'] == 0
-                                    ? Text("Valor diária: R\$" +
-                                        document['valorDia'].toStringAsFixed(2))
-                                    : Text("Valor diária: R\$" +
-                                        document['valorDia']
-                                            .toStringAsFixed(2) +
-                                        " Valor ao Mês: R\$" +
-                                        document['valorMes']
-                                            .toStringAsFixed(2)),
+                                subtitle: document['operador'] == true
+                                    ? Text(
+                                        "Hora operador: R\$ ${document['valorHoraOperador'].toStringAsFixed(2)}")
+                                    : document['valorMes'] == 0
+                                        ? Text("Valor diária: R\$" +
+                                            document['valorDia']
+                                                .toStringAsFixed(2))
+                                        : Text("Valor diária: R\$" +
+                                            document['valorDia']
+                                                .toStringAsFixed(2) +
+                                            " Valor ao Mês: R\$" +
+                                            document['valorMes']
+                                                .toStringAsFixed(2)),
                               ),
                             ),
                             IconButton(

@@ -108,49 +108,6 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                 SizedBox(
                   height: 10,
                 ),
-                Card(
-                  elevation: 5.0,
-                  margin: EdgeInsets.zero,
-                  child: ExpansionTile(
-                    title: Text(
-                      "Adicionais",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                    leading: Icon(Icons.list),
-                    trailing: Icon(Icons.add),
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: TextFormField(
-                          controller: _descricaoAdicional,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "Descrição",
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: TextFormField(
-                          controller: _valorAdicional,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "Valor",
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
                   height: 50,
                   alignment: Alignment.centerLeft,
@@ -189,13 +146,15 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
   void salvarEquipamento() {
     Firestore.instance.collection("equipamentos").document().setData({
       'nome': _nome.text.toUpperCase(),
-      'valorDia': _valorDiaria.text == "" ? 0.0 : double.parse(_valorDiaria.text.replaceAll(",", ".")),
-      'valorMes': _valorMes.text == "" ? 0.0 : double.parse(_valorMes.text.replaceAll(",", ".")),
-      'descricaoAdicional': _descricaoAdicional.text.toUpperCase(),
-      'valorAdicional':
-          _valorAdicional.text == "" ? 0.0 : double.parse(_valorAdicional.text.replaceAll(",", ".")),
-      'valorHoraOperador':
-          _horaOperador.text == "" ? 0.0 : double.parse(_horaOperador.text.replaceAll(",", ".")),
+      'valorDia': _valorDiaria.text == ""
+          ? 0.0
+          : double.parse(_valorDiaria.text.replaceAll(",", ".")),
+      'valorMes': _valorMes.text == ""
+          ? 0.0
+          : double.parse(_valorMes.text.replaceAll(",", ".")),
+      'valorHoraOperador': _horaOperador.text == ""
+          ? 0.0
+          : double.parse(_horaOperador.text.replaceAll(",", ".")),
       'operador': _operador,
     }).then((_) {
       Navigator.pop(context);

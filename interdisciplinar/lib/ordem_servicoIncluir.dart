@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 class OrdemServicoIncluir extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
   TextEditingController quantDias = TextEditingController();
   TextEditingController quantHoras = TextEditingController();
   TextEditingController desconto = TextEditingController();
+  TextEditingController dataCriacao = TextEditingController();
+  final format = DateFormat("dd/MM/yyyy");
 
   void _onChange(bool value, double valor, double valorDia) {
     if (!mounted) return;
@@ -45,7 +49,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text("Ordem de Serviço"),
+        title: Text("Incluir Ordem"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -98,7 +102,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                         if (!snapshot.hasData) return const Text('Loading...');
                         return new DropdownButton<String>(
                           isDense: true,
-                          hint: new Text("Selecione"),
+                          hint: new Text("Selecione equipamento"),
                           value: _mySelectionEquipamento,
                           onChanged: (String newValue) {
                             setState(() {
@@ -178,12 +182,13 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                   height: 10,
                 ),
                 _operador
-                    ? Text("Valor hora operador: R\$ ${_valorHora}")
-                    : Text("Valor diária: R\$ ${_valorDia}"),
+                    ? Text(
+                        "Valor hora operador: R\$ ${_valorHora.toStringAsFixed(2)}")
+                    : Text("Valor diária: R\$ ${_valorDia.toStringAsFixed(2)}"),
                 SizedBox(
                   height: 10,
                 ),
-                Text("Subtotal: R\$ ${_subtotal}"),
+                Text("Subtotal: R\$ ${_subtotal.toStringAsFixed(2)}"),
                 SizedBox(
                   height: 10,
                 ),
@@ -205,8 +210,24 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                   height: 10,
                 ),
                 Text(
-                  "Valor Total: R\$ ${_total}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  "Valor Total: R\$ ${_total.toStringAsFixed(2)}",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                DateTimeField(
+                  decoration: InputDecoration(
+                      labelText: 'Data', hasFloatingPlaceholder: false),
+                  format: format,
+                  controller: dataCriacao,
+                  onShowPicker: (context, currentValue) {
+                    return showDatePicker(
+                        context: context,
+                        firstDate: DateTime(1900),
+                        initialDate: currentValue ?? DateTime.now(),
+                        lastDate: DateTime(2100));
+                  },
                 ),
                 SizedBox(
                   height: 10,
@@ -231,8 +252,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                         ),
                       ),
                       onPressed: () {
-                        print(_mySelectionEquipamento);
-                        Navigator.of(context).pop();
+                        salvarOrdem();
                       },
                     ),
                   ),
@@ -243,5 +263,31 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
         ),
       ),
     );
+  }
+
+  void salvarOrdem() {
+    Firestore.instance.collection("ordens").document().setData({
+      'clienteId': _mySelectionCliente.toString(),
+      'equipamentoId': _mySelectionEquipamento.toString(),
+      'dias': quantDias.text == ""
+          ? 0.0
+          : double.parse(quantDias.text.replaceAll(",", ".")),
+      'horasOperador': quantHoras.text == ""
+          ? 0.0
+          : double.parse(quantHoras.text.replaceAll(",", ".")),
+      'dataCriacao': dataCriacao.text == ""
+          ? new DateFormat("dd/MM/yyyy").format(DateTime.now())
+          : dataCriacao.text,
+      'desconto': desconto.text == ""
+          ? 0.0
+          : double.parse(desconto.text.replaceAll(",", ".")),
+      'subtotal': _subtotal,
+      'total': _total,
+      'data_devolucao': "",
+      'data_entrega': "",
+      'status': 1
+    }).then((_) {
+      Navigator.pop(context);
+    });
   }
 }

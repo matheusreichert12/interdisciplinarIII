@@ -31,8 +31,6 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
         _nome.text = docs.data['nome'];
         _valorDiaria.text = docs.data['valorDia'].toString();
         _valorMes.text = docs.data['valorMes'].toString();
-        _descricaoAdicional.text = docs.data['descricaoAdicional'];
-        _valorAdicional.text = docs.data['valorAdicional'].toString();
         _horaOperador.text = docs.data['valorHoraOperador'].toString();
       }
     });
@@ -42,8 +40,6 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
   final _nome = TextEditingController();
   final _valorDiaria = TextEditingController();
   final _valorMes = TextEditingController();
-  final _descricaoAdicional = TextEditingController();
-  final _valorAdicional = TextEditingController();
   final _horaOperador = TextEditingController();
 
   void _onChange(bool value) {
@@ -138,49 +134,6 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
                 SizedBox(
                   height: 10,
                 ),
-                Card(
-                  elevation: 5.0,
-                  margin: EdgeInsets.zero,
-                  child: ExpansionTile(
-                    title: Text(
-                      "Adicionais",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                    leading: Icon(Icons.list),
-                    trailing: Icon(Icons.add),
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: TextFormField(
-                          controller: _descricaoAdicional,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "Descrição",
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: TextFormField(
-                          controller: _valorAdicional,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "Valor",
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
                   height: 50,
                   alignment: Alignment.centerLeft,
@@ -228,10 +181,6 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
       'valorMes': _valorMes.text == "" || _operador
           ? 0.0
           : double.parse(_valorMes.text.replaceAll(",", ".")),
-      'descricaoAdicional': _descricaoAdicional.text.toUpperCase(),
-      'valorAdicional': _valorAdicional.text == ""
-          ? 0.0
-          : double.parse(_valorAdicional.text.replaceAll(",", ".")),
       'valorHoraOperador': _horaOperador.text == "" || _operador == false
           ? 0.0
           : double.parse(_horaOperador.text.replaceAll(",", ".")),
