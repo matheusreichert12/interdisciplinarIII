@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:interdisciplinar/criarconta.dart';
@@ -171,10 +172,27 @@ class _HomeState extends State<Home> {
       FirebaseUser usuario = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: _login.text, password: _senha.text);
-
       Navigator.pop(context);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => InicialAdministrador(1)));
+
+      Firestore.instance
+          .collection("usuarios")
+          .where("idUsuario", isEqualTo: usuario.uid)
+          .getDocuments()
+          .then((QuerySnapshot docs) {
+        if (docs.documents.length != 0) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      InicialAdministrador(docs.documents[0].data['admin'])));
+        } else {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text("Login ou senha inválidos!"),
+            backgroundColor: Colors.redAccent,
+            duration: Duration(seconds: 2),
+          ));
+        }
+      });
     } catch (erro) {
       Navigator.pop(context);
       _scaffoldKey.currentState.showSnackBar(SnackBar(

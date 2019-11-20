@@ -140,7 +140,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                         controller: quantHoras,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          hintText: "Quantidade de horas",
+                          labelText: "Quantidade de horas",
                         ),
                         onFieldSubmitted: (value) {
                           double valu =
@@ -175,7 +175,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                         controller: quantDias,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          hintText: "Quantidade de dias",
+                          labelText: "Quantidade de dias",
                         ),
                       ),
                 SizedBox(
@@ -196,7 +196,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                   controller: desconto,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
-                    hintText: "Desconto",
+                    labelText: "Desconto",
                   ),
                   onFieldSubmitted: (value) {
                     double valu = double.parse(value.replaceAll(",", "."));

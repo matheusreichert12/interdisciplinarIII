@@ -22,7 +22,7 @@ class _OrdemServicoState extends State<OrdemServico> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Ordens de Alugel"),
+          title: Text("Ordens de Aluguel"),
           centerTitle: true,
           backgroundColor: Colors.grey,
           leading: Icon(Icons.assignment),

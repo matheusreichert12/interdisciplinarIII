@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:interdisciplinar/main.dart';
@@ -132,6 +133,10 @@ class _CriarContaState extends State<CriarConta> {
       FirebaseUser usuario = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: _login.text, password: _senha.text);
+
+      Firestore.instance
+          .collection("usuarios")
+          .add({"idUsuario": usuario.uid, "admin": 0});
 
       Navigator.pop(context);
       Navigator.pop(context);

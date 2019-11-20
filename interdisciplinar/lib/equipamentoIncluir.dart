@@ -49,7 +49,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                   keyboardType: TextInputType.text,
                   controller: _nome,
                   decoration: InputDecoration(
-                    hintText: "Nome",
+                    labelText: "Nome",
                   ),
                 ),
                 SizedBox(
@@ -75,7 +75,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                             TextInputType.numberWithOptions(decimal: true),
                         controller: _valorDiaria,
                         decoration: InputDecoration(
-                          hintText: "Valor diária",
+                          labelText: "Valor diária",
                         ),
                       )
                     : SizedBox(
@@ -87,7 +87,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                             TextInputType.numberWithOptions(decimal: true),
                         controller: _valorMes,
                         decoration: InputDecoration(
-                          hintText: "Valor ao Mês",
+                          labelText: "Valor ao Mês",
                         ),
                       )
                     : SizedBox(
@@ -99,7 +99,7 @@ class _EquipamentoIncluirState extends State<EquipamentoIncluir> {
                             TextInputType.numberWithOptions(decimal: true),
                         controller: _horaOperador,
                         decoration: InputDecoration(
-                          hintText: "Valor hora operador",
+                          labelText: "Valor hora operador",
                         ),
                       )
                     : SizedBox(

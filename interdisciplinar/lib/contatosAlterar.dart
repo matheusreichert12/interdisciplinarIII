@@ -68,7 +68,7 @@ class _ContatosAlterarState extends State<ContatosAlterar> {
                   keyboardType: TextInputType.text,
                   controller: _nome,
                   decoration: InputDecoration(
-                    hintText: "Nome",
+                    labelText: "Nome",
                   ),
                 ),
                 SizedBox(
@@ -78,7 +78,7 @@ class _ContatosAlterarState extends State<ContatosAlterar> {
                   keyboardType: TextInputType.text,
                   controller: _endereco,
                   decoration: InputDecoration(
-                    hintText: "Endereço",
+                    labelText: "Endereço",
                   ),
                 ),
                 SizedBox(
@@ -88,14 +88,14 @@ class _ContatosAlterarState extends State<ContatosAlterar> {
                   keyboardType: TextInputType.text,
                   controller: _cidade,
                   decoration: InputDecoration(
-                    hintText: "Cidade",
+                    labelText: "Cidade",
                   ),
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   controller: _telefone,
                   decoration: InputDecoration(
-                    hintText: "Telefone",
+                    labelText: "Telefone",
                   ),
                 ),
                 SizedBox(
