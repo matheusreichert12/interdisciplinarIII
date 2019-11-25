@@ -39,7 +39,7 @@ class _OrdemServicoState extends State<OrdemServico> {
           children: <Widget>[
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance.collection("ordens").snapshots(),
+                stream: Firestore.instance.collection("ordens").orderBy("status").snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {

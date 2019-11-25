@@ -187,7 +187,7 @@ class _HomeState extends State<Home> {
                       InicialAdministrador(docs.documents[0].data['admin'])));
         } else {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
-            content: Text("Login ou senha inválidos!"),
+            content: Text("E-mail não cadastrado!"),
             backgroundColor: Colors.redAccent,
             duration: Duration(seconds: 2),
           ));
