@@ -24,11 +24,11 @@ class _OrdemServicoState extends State<OrdemServico> {
         appBar: AppBar(
           title: Text("Ordens de Aluguel"),
           centerTitle: true,
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.green[900],
           leading: Icon(Icons.assignment),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.green[900],
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => OrdemServicoIncluir()));
@@ -39,7 +39,10 @@ class _OrdemServicoState extends State<OrdemServico> {
           children: <Widget>[
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance.collection("ordens").orderBy("status").snapshots(),
+                stream: Firestore.instance
+                    .collection("ordens")
+                    .orderBy("status")
+                    .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
@@ -56,18 +59,35 @@ class _OrdemServicoState extends State<OrdemServico> {
                           margin: EdgeInsets.all(6),
                           child: ExpansionTile(
                             leading: status == 1
-                                ? Icon(Icons.airport_shuttle)
+                                ? Icon(
+                                    Icons.airport_shuttle,
+                                    color: Colors.black,
+                                  )
                                 : status == 2
-                                    ? Icon(Icons.beenhere)
+                                    ? Icon(
+                                        Icons.beenhere,
+                                        color: Colors.black,
+                                      )
                                     : Icon(
                                         Icons.beenhere,
                                         color: Colors.green,
                                       ),
                             trailing: status == 1
-                                ? Text(document["dataCriacao"])
+                                ? Text(
+                                    document["dataCriacao"],
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )
                                 : status == 2
-                                    ? Text(document["data_entrega"])
-                                    : Text(document["data_devolucao"]),
+                                    ? Text(document["data_entrega"],
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold))
+                                    : Text(document["data_devolucao"],
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold)),
                             title: StreamBuilder<DocumentSnapshot>(
                               stream: Firestore.instance
                                   .collection("clientes")
@@ -85,7 +105,7 @@ class _OrdemServicoState extends State<OrdemServico> {
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.grey[700],
+                                      color: Colors.black,
                                     ),
                                   );
                               },
@@ -113,32 +133,52 @@ class _OrdemServicoState extends State<OrdemServico> {
                                           Text(
                                             "Equipamento: ${snapshot2.data["nome"]}",
                                             style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
                                           ),
                                           SizedBox(
                                             height: 4.0,
                                           ),
                                           Text(
-                                              "Data Ciração da Ordem: ${document["dataCriacao"]}"),
+                                            "Data Ciração da Ordem: ${document["dataCriacao"]}",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16),
+                                          ),
                                           SizedBox(
                                             height: 4.0,
                                           ),
                                           snapshot2.data["operador"] == false
                                               ? Text(
-                                                  "Valor dia: R\$ ${snapshot2.data["valorDia"]} x ${document["dias"]} dias")
+                                                  "Valor dia: R\$ ${snapshot2.data["valorDia"]} x ${document["dias"]} dias",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16),
+                                                )
                                               : Text(
-                                                  "Valor hora: R\$ ${snapshot2.data["valorHoraOperador"].toStringAsFixed(2)} x ${document["horasOperador"]} horas trabalhadas"),
+                                                  "Valor hora: R\$ ${snapshot2.data["valorHoraOperador"].toStringAsFixed(2)} x ${document["horasOperador"]} horas trabalhadas",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16),
+                                                ),
                                           SizedBox(
                                             height: 4.0,
                                           ),
                                           Text(
-                                              "SubTotal: R\$ ${document["subtotal"].toStringAsFixed(2)}"),
+                                            "SubTotal: R\$ ${document["subtotal"].toStringAsFixed(2)}",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16),
+                                          ),
                                           SizedBox(
                                             height: 4.0,
                                           ),
                                           Text(
-                                              "Desconto: R\$ ${document["desconto"].toStringAsFixed(2)}"),
+                                            "Desconto: R\$ ${document["desconto"].toStringAsFixed(2)}",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16),
+                                          ),
                                           SizedBox(
                                             height: 10.0,
                                           ),
@@ -146,7 +186,7 @@ class _OrdemServicoState extends State<OrdemServico> {
                                             "Total: R\$ ${document["total"].toStringAsFixed(2)}",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 16),
+                                                fontSize: 18),
                                           ),
                                           SizedBox(
                                             height: 10.0,
@@ -155,6 +195,7 @@ class _OrdemServicoState extends State<OrdemServico> {
                                             "Status da Ordem:",
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
+                                              color: Colors.black,
                                             ),
                                           ),
                                           SizedBox(
@@ -181,8 +222,7 @@ class _OrdemServicoState extends State<OrdemServico> {
                                                       ? "Confirmar Entrega"
                                                       : "Confirmar Devolução"),
                                                   textColor: Colors.white,
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
+                                                  color: Colors.green[900],
                                                   onPressed: () {
                                                     int teste = status + 1;
                                                     if (teste == 2) {
@@ -232,11 +272,14 @@ class _OrdemServicoState extends State<OrdemServico> {
                                               ? DateTimeField(
                                                   controller: data,
                                                   decoration: InputDecoration(
-                                                      labelText: status == 1
-                                                          ? 'Data Entrega'
-                                                          : 'Data Devolução',
-                                                      hasFloatingPlaceholder:
-                                                          false),
+                                                    labelText: status == 1
+                                                        ? 'Data Entrega'
+                                                        : 'Data Devolução',
+                                                    hasFloatingPlaceholder:
+                                                        false,
+                                                    labelStyle: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
                                                   format: format,
                                                   //controller: dataCriacao,
                                                   onShowPicker:
@@ -315,7 +358,10 @@ class _OrdemServicoState extends State<OrdemServico> {
           backgroundColor: backColor,
           child: child,
         ),
-        Text(subtitle),
+        Text(
+          subtitle,
+          style: TextStyle(color: Colors.black),
+        ),
       ],
     );
   }

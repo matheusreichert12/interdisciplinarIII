@@ -48,7 +48,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[900],
         title: Text("Incluir Ordem"),
         centerTitle: true,
       ),
@@ -70,7 +70,10 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                         if (!snapshot.hasData) return const Text('Loading...');
                         return new DropdownButton<String>(
                           isDense: true,
-                          hint: new Text("Selecione um cliente"),
+                          hint: new Text(
+                            "Selecione um cliente",
+                            style: TextStyle(color: Colors.black),
+                          ),
                           value: _mySelectionCliente,
                           onChanged: (String newValue) {
                             setState(() {
@@ -82,6 +85,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                               value: map.documentID,
                               child: new Text(
                                 map["nome"],
+                                style: TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
@@ -102,7 +106,10 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                         if (!snapshot.hasData) return const Text('Loading...');
                         return new DropdownButton<String>(
                           isDense: true,
-                          hint: new Text("Selecione equipamento"),
+                          hint: new Text(
+                            "Selecione equipamento",
+                            style: TextStyle(color: Colors.black),
+                          ),
                           value: _mySelectionEquipamento,
                           onChanged: (String newValue) {
                             setState(() {
@@ -115,6 +122,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                               value: map.documentID,
                               child: new Text(
                                 map["nome"],
+                                style: TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
@@ -124,7 +132,10 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                   ],
                 ),
                 SwitchListTile(
-                  title: Text("Contém operador"),
+                  title: Text(
+                    "Contém operador",
+                    style: TextStyle(color: Colors.black),
+                  ),
                   secondary: Icon(
                     Icons.person,
                     color: (_operador) ? Colors.green : Colors.grey,
@@ -141,6 +152,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: "Quantidade de horas",
+                          labelStyle: TextStyle(color: Colors.black),
                         ),
                         onFieldSubmitted: (value) {
                           double valu =
@@ -176,6 +188,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: "Quantidade de dias",
+                          labelStyle: TextStyle(color: Colors.black),
                         ),
                       ),
                 SizedBox(
@@ -183,12 +196,20 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                 ),
                 _operador
                     ? Text(
-                        "Valor hora operador: R\$ ${_valorHora.toStringAsFixed(2)}")
-                    : Text("Valor diária: R\$ ${_valorDia.toStringAsFixed(2)}"),
+                        "Valor hora operador: R\$ ${_valorHora.toStringAsFixed(2)}",
+                        style: TextStyle(color: Colors.black),
+                      )
+                    : Text(
+                        "Valor diária: R\$ ${_valorDia.toStringAsFixed(2)}",
+                        style: TextStyle(color: Colors.black),
+                      ),
                 SizedBox(
                   height: 10,
                 ),
-                Text("Subtotal: R\$ ${_subtotal.toStringAsFixed(2)}"),
+                Text(
+                  "Subtotal: R\$ ${_subtotal.toStringAsFixed(2)}",
+                  style: TextStyle(color: Colors.black),
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -197,6 +218,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     labelText: "Desconto",
+                    labelStyle: TextStyle(color: Colors.black),
                   ),
                   onFieldSubmitted: (value) {
                     double valu = double.parse(value.replaceAll(",", "."));
@@ -211,14 +233,20 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                 ),
                 Text(
                   "Valor Total: R\$ ${_total.toStringAsFixed(2)}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.black),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 DateTimeField(
                   decoration: InputDecoration(
-                      labelText: 'Data', hasFloatingPlaceholder: false),
+                    labelText: 'Data',
+                    hasFloatingPlaceholder: false,
+                    labelStyle: TextStyle(color: Colors.black),
+                  ),
                   format: format,
                   controller: dataCriacao,
                   onShowPicker: (context, currentValue) {
@@ -236,7 +264,7 @@ class _OrdemServicoIncluirState extends State<OrdemServicoIncluir> {
                   height: 50,
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: Colors.green[900],
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),

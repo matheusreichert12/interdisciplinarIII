@@ -17,7 +17,7 @@ class _ContatosIncluirState extends State<ContatosIncluir> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[900],
         title: Text("Cadastrar Cliente"),
         centerTitle: true,
       ),
@@ -40,6 +40,7 @@ class _ContatosIncluirState extends State<ContatosIncluir> {
                   controller: _nome,
                   decoration: InputDecoration(
                     labelText: "Nome",
+                    labelStyle: TextStyle(color: Colors.black),
                   ),
                 ),
                 SizedBox(
@@ -50,6 +51,7 @@ class _ContatosIncluirState extends State<ContatosIncluir> {
                   controller: _endereco,
                   decoration: InputDecoration(
                     labelText: "Endereço",
+                    labelStyle: TextStyle(color: Colors.black),
                   ),
                 ),
                 SizedBox(
@@ -60,6 +62,7 @@ class _ContatosIncluirState extends State<ContatosIncluir> {
                   controller: _cidade,
                   decoration: InputDecoration(
                     labelText: "Cidade",
+                    labelStyle: TextStyle(color: Colors.black),
                   ),
                 ),
                 TextFormField(
@@ -67,6 +70,7 @@ class _ContatosIncluirState extends State<ContatosIncluir> {
                   controller: _telefone,
                   decoration: InputDecoration(
                     labelText: "Telefone",
+                    labelStyle: TextStyle(color: Colors.black),
                   ),
                 ),
                 SizedBox(
@@ -76,7 +80,7 @@ class _ContatosIncluirState extends State<ContatosIncluir> {
                   height: 50,
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: Colors.green[900],
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),

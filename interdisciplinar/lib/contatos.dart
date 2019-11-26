@@ -30,7 +30,7 @@ class _ContatosState extends State<Contatos> {
               hintText: "Pesquisar", hintStyle: TextStyle(color: Colors.white)),
         ),
         centerTitle: true,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.green[900],
         leading: Icon(Icons.search),
       ),
       body: Padding(
@@ -75,7 +75,7 @@ class _ContatosState extends State<Contatos> {
                             ),
                             subtitle: Text(document['cidade'].toString() +
                                 ", " +
-                                document['endereco'].toString()),
+                                document['endereco'].toString(),style: TextStyle(color: Colors.black),),
                           ),
                         ),
                         IconButton(
@@ -108,7 +108,7 @@ class _ContatosState extends State<Contatos> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[900],
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => ContatosIncluir()));

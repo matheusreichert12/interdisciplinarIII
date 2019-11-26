@@ -29,7 +29,7 @@ class _EquipamentoState extends State<Equipamento> {
               hintText: "Pesquisar", hintStyle: TextStyle(color: Colors.white)),
         ),
         centerTitle: true,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.green[900],
         leading: Icon(Icons.search),
       ),
       body: Column(
@@ -77,17 +77,27 @@ class _EquipamentoState extends State<Equipamento> {
                                 ),
                                 subtitle: document['operador'] == true
                                     ? Text(
-                                        "Hora operador: R\$ ${document['valorHoraOperador'].toStringAsFixed(2)}")
+                                        "Hora operador: R\$ ${document['valorHoraOperador'].toStringAsFixed(2)}",
+                                        style: TextStyle(color: Colors.black),
+                                      )
                                     : document['valorMes'] == 0
-                                        ? Text("Valor diária: R\$" +
-                                            document['valorDia']
-                                                .toStringAsFixed(2))
-                                        : Text("Valor diária: R\$" +
-                                            document['valorDia']
-                                                .toStringAsFixed(2) +
-                                            " Valor ao Mês: R\$" +
-                                            document['valorMes']
-                                                .toStringAsFixed(2)),
+                                        ? Text(
+                                            "Valor diária: R\$" +
+                                                document['valorDia']
+                                                    .toStringAsFixed(2),
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          )
+                                        : Text(
+                                            "Valor diária: R\$" +
+                                                document['valorDia']
+                                                    .toStringAsFixed(2) +
+                                                " Valor ao Mês: R\$" +
+                                                document['valorMes']
+                                                    .toStringAsFixed(2),
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                               ),
                             ),
                             IconButton(
@@ -113,7 +123,7 @@ class _EquipamentoState extends State<Equipamento> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[900],
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => EquipamentoIncluir()));

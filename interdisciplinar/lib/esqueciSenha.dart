@@ -16,7 +16,7 @@ class _EsqueciSenhaState extends State<EsqueciSenha> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[900],
         title: Text("Recuperar a Senha"),
         centerTitle: true,
       ),
@@ -41,7 +41,7 @@ class _EsqueciSenhaState extends State<EsqueciSenha> {
                 decoration: InputDecoration(
                   labelText: "E-mail",
                   labelStyle: TextStyle(
-                      color: Colors.black38,
+                      color: Colors.black,
                       fontWeight: FontWeight.w400,
                       fontSize: 20),
                 ),
@@ -54,7 +54,7 @@ class _EsqueciSenhaState extends State<EsqueciSenha> {
                 height: 50,
                 alignment: Alignment.centerLeft,
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: Colors.green[900],
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),

@@ -54,6 +54,7 @@ class _HomeState extends State<Home> {
                   height: 50,
                 ),
                 TextFormField(
+                  
                   keyboardType: TextInputType.emailAddress,
                   controller: _login,
                   validator: (value) {
@@ -66,8 +67,10 @@ class _HomeState extends State<Home> {
                   },
                   decoration: InputDecoration(
                     labelText: "E-mail",
+                    
                     labelStyle: TextStyle(
-                        color: Colors.black38,
+                        color: Colors.black,
+                        
                         fontWeight: FontWeight.w400,
                         fontSize: 20),
                   ),
@@ -89,7 +92,7 @@ class _HomeState extends State<Home> {
                   decoration: InputDecoration(
                     labelText: "Senha",
                     labelStyle: TextStyle(
-                        color: Colors.black38,
+                        color: Colors.black,
                         fontWeight: FontWeight.w400,
                         fontSize: 20),
                   ),
@@ -102,7 +105,7 @@ class _HomeState extends State<Home> {
                   height: 60,
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: Colors.green[900],
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),

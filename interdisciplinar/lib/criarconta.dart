@@ -46,7 +46,7 @@ class _CriarContaState extends State<CriarConta> {
                 decoration: InputDecoration(
                   labelText: "E-mail",
                   labelStyle: TextStyle(
-                      color: Colors.black38,
+                      color: Colors.black,
                       fontWeight: FontWeight.w400,
                       fontSize: 20),
                 ),
@@ -68,7 +68,7 @@ class _CriarContaState extends State<CriarConta> {
                 decoration: InputDecoration(
                   labelText: "Senha",
                   labelStyle: TextStyle(
-                      color: Colors.black38,
+                      color: Colors.black,
                       fontWeight: FontWeight.w400,
                       fontSize: 20),
                 ),
@@ -81,7 +81,7 @@ class _CriarContaState extends State<CriarConta> {
                 height: 60,
                 alignment: Alignment.centerLeft,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.green[900],
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
@@ -113,6 +113,7 @@ class _CriarContaState extends State<CriarConta> {
                   child: Text(
                     "Ja possuí uma conta? Fazer login",
                     textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black),
                   ),
                   onPressed: () {
                     Navigator.push(context,

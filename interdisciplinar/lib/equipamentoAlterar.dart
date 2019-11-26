@@ -53,7 +53,7 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[900],
         title: Text("Alteração Equipamento"),
         centerTitle: true,
       ),
@@ -76,6 +76,7 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
                   controller: _nome,
                   decoration: InputDecoration(
                     labelText: "Nome",
+                    labelStyle: TextStyle(color: Colors.black),
                   ),
                 ),
                 SizedBox(
@@ -102,6 +103,7 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
                         controller: _valorDiaria,
                         decoration: InputDecoration(
                           labelText: "Valor diária",
+                          labelStyle: TextStyle(color: Colors.black),
                         ),
                       )
                     : SizedBox(
@@ -114,6 +116,7 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
                         controller: _valorMes,
                         decoration: InputDecoration(
                           labelText: "Valor ao Mês",
+                          labelStyle: TextStyle(color: Colors.black),
                         ),
                       )
                     : SizedBox(
@@ -126,6 +129,7 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
                         controller: _horaOperador,
                         decoration: InputDecoration(
                           labelText: "Valor hora operador",
+                          labelStyle: TextStyle(color: Colors.black),
                         ),
                       )
                     : SizedBox(
@@ -138,7 +142,7 @@ class _EquipamentoAlterarState extends State<EquipamentoAlterar> {
                   height: 50,
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: Colors.green[900],
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),

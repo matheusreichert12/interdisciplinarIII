@@ -54,7 +54,7 @@ class _InicialAdministradorState extends State<InicialAdministrador> {
           Icon(Icons.group, size: 30, color: Colors.white),
           Icon(Icons.assignment, size: 30, color: Colors.white),
         ],
-        color: Colors.grey,
+        color: Colors.green[900],
         backgroundColor: Colors.white,
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 700),
